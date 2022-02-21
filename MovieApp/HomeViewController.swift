@@ -22,8 +22,23 @@ class HomeViewController: UIViewController {
         
         createCollectionView()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        setupNavigationItems()
     }
     
+    private func setupNavigationItems() {
+        let label = UILabel()
+        label.text = "Home"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 30)
+        navigationItem.titleView = label
+        
+        label.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(30)
+            make.right.equalToSuperview().inset(60)
+        }
+    }
     
     private func createCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())

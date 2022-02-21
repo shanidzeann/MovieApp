@@ -10,10 +10,8 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        fixNavigationBar()
         return true
     }
 
@@ -32,5 +30,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    // MARK: - Fix Nav Bar tint issue in iOS 15.0 or later
+    
+    func fixNavigationBar() {
+        if #available(iOS 15.0, *) {
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.configureWithTransparentBackground()
+            navigationBarAppearance.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+            navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            navigationBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+           UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+            
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithOpaqueBackground()
+            tabBarAppearance.backgroundColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
+    }
 }
 

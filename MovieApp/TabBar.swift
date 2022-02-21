@@ -13,7 +13,6 @@ class TabBar: UITabBarController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        UITabBar.appearance().barTintColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
         tabBar.backgroundColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
         tabBar.tintColor = .white
         setupVCs()
@@ -31,7 +30,7 @@ class TabBar: UITabBarController {
                                      image: UIImage) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
-        rootViewController.title = title
+        //rootViewController.title = title
         navController.tabBarItem.image = image
         navController.navigationBar.prefersLargeTitles = false
         
