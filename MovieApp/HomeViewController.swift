@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
     
     private func createCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView?.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
         collectionView?.dataSource = self
         collectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         view.addSubview(collectionView ?? UICollectionView())
@@ -44,11 +44,11 @@ class HomeViewController: UIViewController {
             
             switch sectionKind {
             case .popularMovie:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(200), heightDimension: .absolute(250))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(180), heightDimension: .absolute(250))
             case .tvShow:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(180), heightDimension: .absolute(200))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(150), heightDimension: .absolute(200))
             case .continueWatching:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(180), heightDimension: .absolute(200))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(150), heightDimension: .absolute(200))
             }
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
@@ -76,9 +76,8 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .black
-        cell.layer.cornerRadius = 20
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
+        
         return cell
     }
     
