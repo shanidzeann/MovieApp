@@ -13,6 +13,7 @@
 		8915A45927C3E59900B4674C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8915A45827C3E59900B4674C /* Assets.xcassets */; };
 		8915A45C27C3E59900B4674C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */; };
 		89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4427827C3EB7D00CADCC0 /* TabBar.swift */; };
+		89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		8915A45B27C3E59900B4674C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8915A45D27C3E59900B4674C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89A4427827C3EB7D00CADCC0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				8915A44F27C3E59700B4674C /* AppDelegate.swift */,
 				8915A45127C3E59700B4674C /* SceneDelegate.swift */,
 				8915A45327C3E59700B4674C /* HomeViewController.swift */,
+				89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */,
 				8915A45827C3E59900B4674C /* Assets.xcassets */,
 				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
 				8915A45D27C3E59900B4674C /* Info.plist */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */,
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
 				8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */,
 				8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */,
