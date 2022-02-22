@@ -9,41 +9,54 @@ import UIKit
 import Kingfisher
 
 enum Section: Int, CaseIterable {
-    case popularMovie
-    case tvShow
-    case continueWatching
+    case popular
+    case topRated
+    case upcoming
 }
+
+// TODO: - MVP
+// TODO: - Diffable data source
+// TODO: - Custom tab bar
+// TODO: - Detail VC
 
 class HomeViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private var collectionView: UICollectionView?
     private let networkManager = NetworkManager()
-    private var movies: [Movie]?
+    private var lists: [List]?
+    
+    // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
         getMovies()
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        setupNavigationItems()
     }
     
-    func getMovies() {
-        networkManager.getMovies { [weak self] result in
+    // MARK: - Helper methods
+    
+    private func getMovies() {
+        networkManager.downloadUrls { result in
             switch result {
-            case .success(let movies):
-                self?.movies = movies
+            case .success(let lists):
+                self.lists = lists
                 DispatchQueue.main.async {
-                    self?.createCollectionView()
+                    self.createCollectionView()
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error)
             }
-            
         }
     }
     
-    private func setupNavigationItems() {
+    // MARK: - UI
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         let label = UILabel()
         label.text = "Home"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,11 +91,9 @@ class HomeViewController: UIViewController {
             var groupSize = NSCollectionLayoutSize(widthDimension: .absolute(200), heightDimension: .absolute(300))
             
             switch sectionKind {
-            case .popularMovie:
+            case .popular:
                 groupSize = NSCollectionLayoutSize(widthDimension: .absolute(160), heightDimension: .absolute(250))
-            case .tvShow:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(200))
-            case .continueWatching:
+            case .topRated, .upcoming:
                 groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(200))
             }
             
@@ -104,27 +115,27 @@ class HomeViewController: UIViewController {
     
 }
 
+    // MARK: - UICollectionViewDataSource
 
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return movies?.count ?? 0
-        default:
-            return 1
-        }
+        return lists?[section].results.count ?? 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return lists?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
-        cell.titleLabel.text = movies?[indexPath.item].title
-        cell.dateLabel.text = movies?[indexPath.item].releaseDate
-        let image = movies?[indexPath.item].posterPath ?? ""
+        
+        guard let movies = lists?[indexPath.section].results else { return UICollectionViewCell() }
+        let movie = movies[indexPath.item]
+        
+        cell.titleLabel.text = movie.title
+        cell.dateLabel.text = movie.releaseDate
+        let image = movie.posterPath
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
         cell.movieImageView.kf.setImage(with: url)
         
@@ -134,10 +145,22 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HeaderSupplementaryView else { return UICollectionReusableView() }
         
+        guard let sectionKind = Section(rawValue: indexPath.section) else { return UICollectionReusableView() }
+        switch sectionKind {
+        case .popular:
+            headerView.title = "Popular Movie"
+        case .topRated:
+            headerView.title = "Top Rated"
+        case .upcoming:
+            headerView.title = "Upcoming"
+        }
+        
         return headerView
     }
     
 }
+
+    // MARK: - UICollectionViewDelegate
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

@@ -102,7 +102,6 @@
 				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
 				8915A45D27C3E59900B4674C /* Info.plist */,
 				897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */,
-				897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -121,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */,
+				897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

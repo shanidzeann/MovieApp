@@ -14,9 +14,14 @@ class HeaderSupplementaryView: UICollectionReusableView {
        let label = UILabel()
         label.font = .boldSystemFont(ofSize: 19)
         label.textColor = .white
-        label.text = "Section"
         return label
     }()
+    
+    var title: String? {
+        didSet {
+            label.text = title
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +35,6 @@ class HeaderSupplementaryView: UICollectionReusableView {
     
     func createUI() {
         addSubview(label)
-        
         label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.left.equalToSuperview().inset(10)
