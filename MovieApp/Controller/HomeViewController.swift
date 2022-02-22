@@ -16,13 +16,30 @@ enum Section: Int, CaseIterable {
 class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView?
+    private let networkManager = NetworkManager()
+    private var movies: [Movie]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createCollectionView()
+        getMovies()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupNavigationItems()
+    }
+    
+    func getMovies() {
+        networkManager.getMovies { [weak self] result in
+            switch result {
+            case .success(let movies):
+                self?.movies = movies
+                DispatchQueue.main.async {
+                    self?.createCollectionView()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
     }
     
     private func setupNavigationItems() {
@@ -89,7 +106,12 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        switch section {
+        case 0:
+            return movies?.count ?? 0
+        default:
+            return 1
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -98,6 +120,8 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
+        cell.titleLabel.text = movies?[indexPath.item].title
+        cell.dateLabel.text = movies?[indexPath.item].releaseDate
         
         return cell
     }

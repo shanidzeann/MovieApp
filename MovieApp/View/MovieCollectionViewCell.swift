@@ -10,7 +10,7 @@ import SnapKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-    private let movieImageView: UIImageView = {
+     let movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
@@ -18,7 +18,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
+     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .boldSystemFont(ofSize: 19)
@@ -26,7 +26,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let dateLabel: UILabel = {
+     let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         
