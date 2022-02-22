@@ -12,17 +12,21 @@ class TabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        tabBar.backgroundColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
-        tabBar.tintColor = .white
+        setColors()
         setupVCs()
     }
     
     private func setupVCs() {
         viewControllers = [
             createNavController(for: HomeViewController(), title: "Home", image: UIImage(systemName: "house.fill")!),
-            createNavController(for: HomeViewController(), title: "Hz", image: UIImage(systemName: "play.circle")!)
+            createNavController(for: ProfileViewController(), title: "Profile", image: UIImage(systemName: "person.fill")!)
         ]
+    }
+    
+    private func setColors() {
+        view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+        tabBar.backgroundColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
+        tabBar.tintColor = .white
     }
     
     private func createNavController(for rootViewController: UIViewController,
