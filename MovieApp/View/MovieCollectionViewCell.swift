@@ -37,6 +37,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        createUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func createUI() {
         contentView.addSubview(movieImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)
@@ -56,10 +64,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(titleLabel.snp.top)
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }
