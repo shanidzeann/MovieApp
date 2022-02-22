@@ -69,6 +69,14 @@ class HomeViewController: UIViewController {
             make.left.equalToSuperview().inset(30)
             make.right.equalToSuperview().inset(100)
         }
+        
+        let button = UIButton(configuration: .plain(), primaryAction: nil)
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(systemName: "magnifyingglass")
+        button.configuration = config
+        button.tintColor = .white
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
     
     private func createCollectionView() {

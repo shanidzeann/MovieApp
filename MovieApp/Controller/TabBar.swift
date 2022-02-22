@@ -37,14 +37,6 @@ class TabBar: UITabBarController {
         navController.tabBarItem.image = image
         navController.navigationBar.prefersLargeTitles = false
         
-        let button = UIButton(configuration: .plain(), primaryAction: nil)
-        var config = UIButton.Configuration.plain()
-        config.image = UIImage(systemName: "magnifyingglass")
-        button.configuration = config
-        button.tintColor = .white
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        rootViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-        
         return navController
     }
 }
