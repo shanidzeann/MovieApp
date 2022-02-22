@@ -1,5 +1,5 @@
 //
-//  PopularMovieModel.swift
+//  MovieModel.swift
 //  MovieApp
 //
 //  Created by Anna Shanidze on 22.02.2022.
@@ -7,14 +7,15 @@
 
 import Foundation
 
-// MARK: - Welcome
+// MARK: - List
 struct List: Codable {
+    let dates: Dates?
     let page: Int
     let results: [Movie]
     let totalPages, totalResults: Int
 
     enum CodingKeys: String, CodingKey {
-        case page, results
+        case dates, page, results
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
@@ -53,4 +54,12 @@ struct Movie: Codable {
 enum OriginalLanguage: String, Codable {
     case en = "en"
     case hi = "hi"
+    case ja = "ja"
+    case ko = "ko"
+    case es = "es"
+}
+
+// MARK: - Dates
+struct Dates: Codable {
+   let maximum, minimum: String
 }
