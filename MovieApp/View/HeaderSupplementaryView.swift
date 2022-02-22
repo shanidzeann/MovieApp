@@ -17,9 +17,9 @@ class HeaderSupplementaryView: UICollectionReusableView {
         return label
     }()
     
-    var title: String? {
+    var section: Int? {
         didSet {
-            label.text = title
+            setTitle(for: section!)
         }
     }
     
@@ -38,6 +38,18 @@ class HeaderSupplementaryView: UICollectionReusableView {
         label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.left.equalToSuperview().inset(10)
+        }
+    }
+    
+    func setTitle(for section: Int) {
+        guard let sectionKind = Section(rawValue: section) else { return }
+        switch sectionKind {
+        case .popular:
+            label.text = "Popular Movie"
+        case .topRated:
+            label.text = "Top Rated"
+        case .upcoming:
+            label.text = "Upcoming"
         }
     }
     

@@ -34,11 +34,13 @@ class NetworkManager {
                           }
                           return
                       }
+                
                 urlDownloadQueue.async {
                     movieCollection.append(result)
                     urlDownloadGroup.leave()
                 }
             }.resume()
+            urlDownloadGroup.wait()
         }
         
         urlDownloadGroup.notify(queue: DispatchQueue.global()) {

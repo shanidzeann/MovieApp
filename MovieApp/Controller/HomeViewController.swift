@@ -145,15 +145,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HeaderSupplementaryView else { return UICollectionReusableView() }
         
-        guard let sectionKind = Section(rawValue: indexPath.section) else { return UICollectionReusableView() }
-        switch sectionKind {
-        case .popular:
-            headerView.title = "Popular Movie"
-        case .topRated:
-            headerView.title = "Top Rated"
-        case .upcoming:
-            headerView.title = "Upcoming"
-        }
+        headerView.section = indexPath.section
         
         return headerView
     }
