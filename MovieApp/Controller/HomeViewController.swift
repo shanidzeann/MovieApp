@@ -43,6 +43,7 @@ class HomeViewController: UIViewController {
     private func createCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView?.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
+        collectionView?.register(HeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "headerView")
         collectionView?.dataSource = self
         collectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         view.addSubview(collectionView ?? UICollectionView())
@@ -67,9 +68,14 @@ class HomeViewController: UIViewController {
             }
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+            
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = .init(top: 20, leading: 20, bottom: 20, trailing: 20)
+            section.contentInsets = .init(top: 10, leading: 20, bottom: 20, trailing: 20)
             section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+            section.boundarySupplementaryItems = [header]
             
             return section
         }
@@ -94,6 +100,12 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HeaderSupplementaryView else { return UICollectionReusableView() }
+        
+        return headerView
     }
     
 }

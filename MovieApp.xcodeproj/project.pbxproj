@@ -12,8 +12,11 @@
 		8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45327C3E59700B4674C /* HomeViewController.swift */; };
 		8915A45927C3E59900B4674C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8915A45827C3E59900B4674C /* Assets.xcassets */; };
 		8915A45C27C3E59900B4674C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */; };
+		897F2AEB27C4F46A0080C3EE /* ImagineItIsHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */; };
+		897F2AED27C4FB520080C3EE /* HeaderSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */; };
 		89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4427827C3EB7D00CADCC0 /* TabBar.swift */; };
 		89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */; };
+		89A4428127C41DDA00CADCC0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4428027C41DDA00CADCC0 /* NetworkManager.swift */; };
 		A1422BE8BC9728CEAA85E085 /* Pods_MovieApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B90057B463AE0173270C995B /* Pods_MovieApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +28,11 @@
 		8915A45827C3E59900B4674C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8915A45B27C3E59900B4674C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8915A45D27C3E59900B4674C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagineItIsHidden.swift; sourceTree = "<group>"; };
+		897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSupplementaryView.swift; sourceTree = "<group>"; };
 		89A4427827C3EB7D00CADCC0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		89A4428027C41DDA00CADCC0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		B7F35ED29D9693BBD9C3B3B4 /* Pods-MovieApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.release.xcconfig"; path = "Target Support Files/Pods-MovieApp/Pods-MovieApp.release.xcconfig"; sourceTree = "<group>"; };
 		B90057B463AE0173270C995B /* Pods_MovieApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA9F1E6F72BE3163C37CFE1 /* Pods-MovieApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.debug.xcconfig"; path = "Target Support Files/Pods-MovieApp/Pods-MovieApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -82,14 +88,17 @@
 		8915A44E27C3E59700B4674C /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
-				89A4427E27C41D8D00CADCC0 /* Model */,
 				8915A44F27C3E59700B4674C /* AppDelegate.swift */,
 				8915A45127C3E59700B4674C /* SceneDelegate.swift */,
+				89A4427E27C41D8D00CADCC0 /* Model */,
 				89A4427D27C41D8300CADCC0 /* View */,
 				89A4427C27C41D6700CADCC0 /* Controller */,
+				89A4427F27C41DC000CADCC0 /* Managers */,
 				8915A45827C3E59900B4674C /* Assets.xcassets */,
 				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
 				8915A45D27C3E59900B4674C /* Info.plist */,
+				897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */,
+				897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -116,6 +125,14 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		89A4427F27C41DC000CADCC0 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				89A4428027C41DDA00CADCC0 /* NetworkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,10 +249,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89A4428127C41DDA00CADCC0 /* NetworkManager.swift in Sources */,
 				89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */,
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
 				8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */,
 				8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */,
+				897F2AED27C4FB520080C3EE /* HeaderSupplementaryView.swift in Sources */,
+				897F2AEB27C4F46A0080C3EE /* ImagineItIsHidden.swift in Sources */,
 				89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
