@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 enum Section: Int, CaseIterable {
     case popularMovie
@@ -53,7 +54,7 @@ class HomeViewController: UIViewController {
         
         label.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(30)
-            make.right.equalToSuperview().inset(60)
+            make.right.equalToSuperview().inset(100)
         }
     }
     
@@ -62,6 +63,7 @@ class HomeViewController: UIViewController {
         collectionView?.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
         collectionView?.register(HeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "headerView")
         collectionView?.dataSource = self
+        collectionView?.delegate = self
         collectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         view.addSubview(collectionView ?? UICollectionView())
     }
@@ -77,11 +79,11 @@ class HomeViewController: UIViewController {
             
             switch sectionKind {
             case .popularMovie:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(180), heightDimension: .absolute(250))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(160), heightDimension: .absolute(250))
             case .tvShow:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(150), heightDimension: .absolute(200))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(200))
             case .continueWatching:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(150), heightDimension: .absolute(200))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(200))
             }
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
@@ -122,6 +124,9 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
         cell.titleLabel.text = movies?[indexPath.item].title
         cell.dateLabel.text = movies?[indexPath.item].releaseDate
+        let image = movies?[indexPath.item].posterPath ?? ""
+        let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
+        cell.movieImageView.kf.setImage(with: url)
         
         return cell
     }
@@ -132,4 +137,11 @@ extension HomeViewController: UICollectionViewDataSource {
         return headerView
     }
     
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? MovieCollectionViewCell else { return }
+        cell.movieImageView.kf.cancelDownloadTask()
+    }
 }
