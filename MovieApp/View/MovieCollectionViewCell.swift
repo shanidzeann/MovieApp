@@ -10,28 +10,26 @@ import SnapKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-     let movieImageView: UIImageView = {
+    let movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
     }()
     
-     let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .boldSystemFont(ofSize: 19)
-        label.text = "Movie"
         return label
     }()
     
-     let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
-        
-        label.text = "june 22"
         return label
     }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

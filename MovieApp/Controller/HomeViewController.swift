@@ -17,7 +17,7 @@ enum Section: Int, CaseIterable {
 // TODO: - MVP
 // TODO: - Diffable data source
 // TODO: - Custom tab bar
-// TODO: - Detail VC
+// TODO: - Detail VC (cast)
 
 class HomeViewController: UIViewController {
     
@@ -39,12 +39,12 @@ class HomeViewController: UIViewController {
     // MARK: - Helper methods
     
     private func getMovies() {
-        networkManager.downloadUrls { result in
+        networkManager.downloadUrls { [weak self] result in
             switch result {
             case .success(let lists):
-                self.lists = lists
+                self?.lists = lists
                 DispatchQueue.main.async {
-                    self.createCollectionView()
+                    self?.createCollectionView()
                 }
             case .failure(let error):
                 print(error)

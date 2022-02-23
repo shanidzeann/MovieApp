@@ -159,9 +159,7 @@ class DetailViewController: UIViewController {
     // MARK: - Helper Methods
     
     private func setData() {
-        guard let movie = movie else {
-            return
-        }
+        guard let movie = movie else { return }
         
         let image = movie.backdropPath
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
