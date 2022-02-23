@@ -167,4 +167,13 @@ extension HomeViewController: UICollectionViewDelegate {
         guard let cell = cell as? MovieCollectionViewCell else { return }
         cell.movieImageView.kf.cancelDownloadTask()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let movies = lists?[indexPath.section].results else { return }
+        let movie = movies[indexPath.item]
+        let detailVC = DetailViewController()
+        detailVC.movie = movie
+        detailVC.modalPresentationStyle = .fullScreen
+        present(detailVC, animated: true, completion: nil)
+    }
 }
