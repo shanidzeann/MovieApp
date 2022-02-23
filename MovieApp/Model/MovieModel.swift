@@ -57,6 +57,7 @@ enum OriginalLanguage: String, Codable {
     case ja = "ja"
     case ko = "ko"
     case es = "es"
+    case fr = "fr"
 }
 
 // MARK: - Dates
