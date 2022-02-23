@@ -28,7 +28,9 @@ class NetworkManager {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data,
                       let result = try? JSONDecoder().decode(List.self, from: data) else {
-                          completion(.failure(error!))
+                          if let error = error {
+                              completion(.failure(error))
+                          }
                           urlDownloadQueue.async {
                               urlDownloadGroup.leave()
                           }
