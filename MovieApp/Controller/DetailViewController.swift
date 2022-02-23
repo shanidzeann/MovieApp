@@ -77,7 +77,6 @@ class DetailViewController: UIViewController {
         config.image = UIImage(systemName: "chevron.backward")
         button.configuration = config
         button.tintColor = .white
-        button.frame = CGRect(x: 20, y: 20, width: 30, height: 30)
         return button
     }()
     
@@ -97,7 +96,7 @@ class DetailViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        setupGradient()
+        _ = setupGradient
     }
     
     private func createUI() {
@@ -112,8 +111,13 @@ class DetailViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(bookmarkButton)
         
+        backButton.snp.makeConstraints { make in
+            make.top.left.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.width.equalTo(30)
+        }
+        
         bookmarkButton.snp.makeConstraints { make in
-            make.top.right.equalToSuperview().inset(20)
+            make.top.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.width.equalTo(30)
         }
         
@@ -150,7 +154,7 @@ class DetailViewController: UIViewController {
             make.height.equalTo(60)
             make.width.equalTo(200)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
@@ -175,8 +179,8 @@ class DetailViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    private func setupGradient() {
-        let view = UIView(frame: posterImageView.frame)
+    private lazy var setupGradient: Void = {
+        let view = UIView(frame: posterImageView.bounds)
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [UIColor.clear.cgColor, self.view.backgroundColor?.cgColor ?? UIColor.clear.cgColor]
@@ -184,7 +188,6 @@ class DetailViewController: UIViewController {
         view.layer.insertSublayer(gradient, at: 0)
         posterImageView.addSubview(view)
         posterImageView.bringSubviewToFront(view)
-    }
-    
+    }()
     
 }
