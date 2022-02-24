@@ -17,6 +17,8 @@ class DetailViewController: UIViewController {
     
     // MARK: - UI
     
+    private var castCollectionView: UICollectionView!
+    
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -84,7 +86,16 @@ class DetailViewController: UIViewController {
         return button
     }()
     
-    private var castCollectionView: UICollectionView!
+    private lazy var setupGradient: Void = {
+        let view = UIView(frame: posterImageView.bounds)
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = [UIColor.clear.cgColor, self.view.backgroundColor?.cgColor ?? UIColor.clear.cgColor]
+        gradient.locations = [0.5, 1.0]
+        view.layer.insertSublayer(gradient, at: 0)
+        posterImageView.addSubview(view)
+        posterImageView.bringSubviewToFront(view)
+    }()
     
     // MARK: - VC Lifecycle
     
@@ -97,6 +108,8 @@ class DetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         _ = setupGradient
     }
+    
+    // MARK: - Helper Methods
     
     private func createUI() {
         view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
@@ -173,8 +186,6 @@ class DetailViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
     }
     
-    // MARK: - Helper Methods
-    
     private func setData() {
         guard let movie = movie else { return }
         
@@ -191,17 +202,6 @@ class DetailViewController: UIViewController {
     @objc private func backToHome() {
         dismiss(animated: true)
     }
-    
-    private lazy var setupGradient: Void = {
-        let view = UIView(frame: posterImageView.bounds)
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.colors = [UIColor.clear.cgColor, self.view.backgroundColor?.cgColor ?? UIColor.clear.cgColor]
-        gradient.locations = [0.5, 1.0]
-        view.layer.insertSublayer(gradient, at: 0)
-        posterImageView.addSubview(view)
-        posterImageView.bringSubviewToFront(view)
-    }()
     
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
@@ -228,6 +228,9 @@ class DetailViewController: UIViewController {
     
 }
 
+
+// MARK: - UICollectionViewDataSource
+
 extension DetailViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -240,8 +243,6 @@ extension DetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
-        
-        
         return cell
     }
     

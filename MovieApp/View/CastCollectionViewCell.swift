@@ -10,6 +10,8 @@ import SnapKit
 
 class CastCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - UI
+    
     let actorImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -34,6 +36,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +47,8 @@ class CastCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Helper Methods
     
     func createUI() {
         contentView.addSubview(actorImageView)
