@@ -112,7 +112,7 @@ class DetailViewController: UIViewController {
         
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        castCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
+        castCollectionView?.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
         castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView?.dataSource = self
         
@@ -239,8 +239,9 @@ extension DetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
+        
+        
         return cell
     }
     
