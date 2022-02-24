@@ -13,9 +13,10 @@
 		8915A45927C3E59900B4674C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8915A45827C3E59900B4674C /* Assets.xcassets */; };
 		8915A45C27C3E59900B4674C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */; };
 		897F2AEB27C4F46A0080C3EE /* ImagineItIsHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */; };
-		897F2AED27C4FB520080C3EE /* HeaderSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */; };
+		897F2AED27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AEC27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift */; };
 		897F2AEF27C5038C0080C3EE /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AEE27C5038C0080C3EE /* MovieModel.swift */; };
 		897F2AF127C50BD50080C3EE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897F2AF027C50BD50080C3EE /* ProfileViewController.swift */; };
+		899FB95F27C7C873005BC50D /* CastHeaderSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */; };
 		89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4427827C3EB7D00CADCC0 /* TabBar.swift */; };
 		89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */; };
 		89A4428127C41DDA00CADCC0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4428027C41DDA00CADCC0 /* NetworkManager.swift */; };
@@ -32,9 +33,10 @@
 		8915A45B27C3E59900B4674C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8915A45D27C3E59900B4674C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagineItIsHidden.swift; sourceTree = "<group>"; };
-		897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSupplementaryView.swift; sourceTree = "<group>"; };
+		897F2AEC27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderSupplementaryView.swift; sourceTree = "<group>"; };
 		897F2AEE27C5038C0080C3EE /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		897F2AF027C50BD50080C3EE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastHeaderSupplementaryView.swift; sourceTree = "<group>"; };
 		89A4427827C3EB7D00CADCC0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		89A4428027C41DDA00CADCC0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -123,7 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */,
-				897F2AEC27C4FB520080C3EE /* HeaderSupplementaryView.swift */,
+				897F2AEC27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift */,
+				899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,7 +268,8 @@
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
 				8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */,
 				8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */,
-				897F2AED27C4FB520080C3EE /* HeaderSupplementaryView.swift in Sources */,
+				897F2AED27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift in Sources */,
+				899FB95F27C7C873005BC50D /* CastHeaderSupplementaryView.swift in Sources */,
 				897F2AEF27C5038C0080C3EE /* MovieModel.swift in Sources */,
 				897F2AEB27C4F46A0080C3EE /* ImagineItIsHidden.swift in Sources */,
 				89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */,

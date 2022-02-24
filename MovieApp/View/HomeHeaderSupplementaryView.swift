@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HeaderSupplementaryView: UICollectionReusableView {
+class HomeHeaderSupplementaryView: UICollectionReusableView {
         
     private let label: UILabel = {
        let label = UILabel()

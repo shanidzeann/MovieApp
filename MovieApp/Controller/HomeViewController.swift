@@ -82,7 +82,7 @@ class HomeViewController: UIViewController {
     private func createCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView?.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
-        collectionView?.register(HeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "headerView")
+        collectionView?.register(HomeHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "headerView")
         collectionView?.dataSource = self
         collectionView?.delegate = self
         collectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
@@ -151,7 +151,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HeaderSupplementaryView else { return UICollectionReusableView() }
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HomeHeaderSupplementaryView else { return UICollectionReusableView() }
         
         headerView.section = indexPath.section
         
