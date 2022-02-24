@@ -13,12 +13,12 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    var movie: Movie? {
-        didSet {
-            createUI()
-            setData()
-        }
-    }
+    var movie: Movie?
+//        didSet {
+//            createUI()
+//            setData()
+//        }
+    //}
     
     // MARK: - UI
     
@@ -71,7 +71,7 @@ class DetailViewController: UIViewController {
         return button
     }()
     
-     private let backButton: UIButton = {
+    private let backButton: UIButton = {
         let button = UIButton(configuration: .plain(), primaryAction: nil)
         var config = UIButton.Configuration.plain()
         config.image = UIImage(systemName: "chevron.backward")
@@ -89,10 +89,14 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    private var castCollectionView: UICollectionView!
+    
     // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createUI()
+        setData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -110,6 +114,14 @@ class DetailViewController: UIViewController {
         view.addSubview(watchButton)
         view.addSubview(backButton)
         view.addSubview(bookmarkButton)
+        
+        castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+        castCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
+        castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
+        castCollectionView?.dataSource = self
+        
+        view.addSubview(castCollectionView ?? UICollectionView())
         
         backButton.snp.makeConstraints { make in
             make.top.left.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -147,15 +159,21 @@ class DetailViewController: UIViewController {
         descriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(ratingLabel.snp.bottom).offset(10)
             make.left.right.equalToSuperview().inset(20)
+            make.height.equalTo(castCollectionView)
         }
-        
+    
         watchButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionTextView.snp.bottom).offset(10)
+            make.top.equalTo(castCollectionView.snp.bottom).offset(10)
             make.height.equalTo(60)
             make.width.equalTo(200)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
+        
+        castCollectionView.snp.makeConstraints({ make in
+            make.top.equalTo(descriptionTextView.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(20)
+        })
         
         backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
     }
@@ -189,5 +207,51 @@ class DetailViewController: UIViewController {
         posterImageView.addSubview(view)
         posterImageView.bringSubviewToFront(view)
     }()
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1.0))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.orthogonalScrollingBehavior = .continuous
+            section.boundarySupplementaryItems = [header]
+            
+            return section
+        }
+        
+        return layout
+    }
+    
+}
+
+extension DetailViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath)
+        cell.backgroundColor = .blue
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "castHeaderView", for: indexPath) as? CastHeaderSupplementaryView else { return UICollectionReusableView() }
+        return headerView
+    }
     
 }
