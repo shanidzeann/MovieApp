@@ -114,7 +114,7 @@ class DetailViewController: UIViewController {
         _ = setupGradient
     }
     
-    // MARK: - Helper Methods
+    // MARK: - UI
     
     private func createUI() {
         view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
@@ -134,7 +134,7 @@ class DetailViewController: UIViewController {
         castCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView?.dataSource = self
-        castCollectionView.isScrollEnabled = false
+        castCollectionView.showsVerticalScrollIndicator = false
         
         view.addSubview(castCollectionView ?? UICollectionView())
         
@@ -174,12 +174,12 @@ class DetailViewController: UIViewController {
         descriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(ratingLabel.snp.bottom).offset(10)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(castCollectionView)
+            make.height.equalTo(castCollectionView).dividedBy(1.3)
         }
         
         watchButton.snp.makeConstraints { make in
             make.top.equalTo(castCollectionView.snp.bottom).offset(10)
-            make.height.equalTo(60)
+            make.height.equalTo(50)
             make.width.equalTo(200)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -193,6 +193,32 @@ class DetailViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
     }
     
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+            header.pinToVisibleBounds = true
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.orthogonalScrollingBehavior = .continuous
+            section.boundarySupplementaryItems = [header]
+            
+            return section
+        }
+        
+        return layout
+    }
+    
+    // MARK: - Helper Methods
+    
     private func setData() {
         guard let movie = movie else { return }
         getCast(from: movie.id) {
@@ -202,7 +228,7 @@ class DetailViewController: UIViewController {
         }
         
         let image = movie.backdropPath
-        let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
+        let url = URL(string: imageURL + image)
         posterImageView.kf.setImage(with: url)
         
         titleLabel.text = movie.title
@@ -228,29 +254,6 @@ class DetailViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            section.orthogonalScrollingBehavior = .continuous
-            section.boundarySupplementaryItems = [header]
-            
-            return section
-        }
-        
-        return layout
-    }
-    
 }
 
 
@@ -266,6 +269,7 @@ extension DetailViewController: UICollectionViewDataSource {
         return cast?.count ?? 0
     }
     
+    #warning("что-то не так")
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
         

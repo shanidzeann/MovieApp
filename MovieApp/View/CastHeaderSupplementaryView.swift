@@ -22,6 +22,7 @@ class CastHeaderSupplementaryView: UICollectionReusableView {
         super.init(frame: frame)
         
         createUI()
+        backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
     }
     
     required init?(coder: NSCoder) {

@@ -17,7 +17,6 @@ enum Section: Int, CaseIterable {
 // TODO: - MVP
 // TODO: - Diffable data source
 // TODO: - Custom tab bar
-// TODO: - Detail VC (cast)
 
 class HomeViewController: UIViewController {
     
