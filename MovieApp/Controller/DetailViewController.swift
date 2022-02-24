@@ -57,6 +57,7 @@ class DetailViewController: UIViewController {
         textView.font = .systemFont(ofSize: 17)
         textView.isEditable = false
         textView.isSelectable = false
+        textView.showsVerticalScrollIndicator = false
         return textView
     }()
     
@@ -128,6 +129,7 @@ class DetailViewController: UIViewController {
         castCollectionView?.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
         castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView?.dataSource = self
+        castCollectionView.isScrollEnabled = false
         
         view.addSubview(castCollectionView ?? UICollectionView())
         

@@ -23,16 +23,22 @@ class CastCollectionViewCell: UICollectionViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = .boldSystemFont(ofSize: 12)
         label.backgroundColor = .red
+        label.text = "Megan Fox"
+        label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
     let characterLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
-        label.font = .boldSystemFont(ofSize: 13)
-        label.backgroundColor = .yellow
+        label.font = .systemFont(ofSize: 10)
+        label.backgroundColor = .black
+        label.textAlignment = .center
+        label.text = "Telslslslsuzik"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -58,18 +64,17 @@ class CastCollectionViewCell: UICollectionViewCell {
         actorImageView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(nameLabel.snp.top)
-            make.height.equalToSuperview().dividedBy(2)
+            make.height.equalToSuperview().dividedBy(2.3)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(actorImageView.snp.bottom)
             make.left.right.equalToSuperview()
-            make.height.equalToSuperview().dividedBy(5.5)
         }
         
         characterLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
         }
         
     }
