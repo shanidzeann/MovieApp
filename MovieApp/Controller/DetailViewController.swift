@@ -14,11 +14,6 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
     
     var movie: Movie?
-//        didSet {
-//            createUI()
-//            setData()
-//        }
-    //}
     
     // MARK: - UI
     
