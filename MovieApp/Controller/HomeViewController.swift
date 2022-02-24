@@ -140,7 +140,6 @@ extension HomeViewController: UICollectionViewDataSource {
         
         guard let movies = lists?[indexPath.section].results else { return UICollectionViewCell() }
         let movie = movies[indexPath.item]
-        
         cell.titleLabel.text = movie.title
         cell.dateLabel.text = movie.releaseDate
         let image = movie.posterPath
@@ -171,6 +170,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movies = lists?[indexPath.section].results else { return }
         let movie = movies[indexPath.item]
+        
         let detailVC = DetailViewController()
         detailVC.movie = movie
         detailVC.modalPresentationStyle = .fullScreen

@@ -13,7 +13,11 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    let networkManager = NetworkManager()
+    let imageURL = "https://image.tmdb.org/t/p/w500"
+    
     var movie: Movie?
+    var cast: [Cast]?
     
     // MARK: - UI
     
@@ -127,6 +131,7 @@ class DetailViewController: UIViewController {
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         castCollectionView?.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
+        castCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView?.dataSource = self
         castCollectionView.isScrollEnabled = false
@@ -171,7 +176,7 @@ class DetailViewController: UIViewController {
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(castCollectionView)
         }
-    
+        
         watchButton.snp.makeConstraints { make in
             make.top.equalTo(castCollectionView.snp.bottom).offset(10)
             make.height.equalTo(60)
@@ -190,6 +195,11 @@ class DetailViewController: UIViewController {
     
     private func setData() {
         guard let movie = movie else { return }
+        getCast(from: movie.id) {
+            DispatchQueue.main.async {
+                self.castCollectionView.reloadData()
+            }
+        }
         
         let image = movie.backdropPath
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
@@ -201,6 +211,19 @@ class DetailViewController: UIViewController {
         descriptionTextView.text = movie.overview
     }
     
+    private func getCast(from movieId: Int, completion: @escaping () -> Void) {
+        cast = nil
+        networkManager.downloadCast(id: movieId) { [weak self] result in
+            switch result {
+            case .success(let cast):
+                self?.cast = cast
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     @objc private func backToHome() {
         dismiss(animated: true)
     }
@@ -208,15 +231,15 @@ class DetailViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1.0))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
+            
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
-
+            
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
             section.orthogonalScrollingBehavior = .continuous
@@ -240,11 +263,20 @@ extension DetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return cast?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
+        
+        if let cast = cast?[indexPath.item],
+           let profile = cast.profilePath {
+            let url = URL(string: imageURL + profile)
+            cell.actorImageView.kf.setImage(with: url)
+            cell.nameLabel.text = cast.name
+            cell.characterLabel.text = cast.character
+        }
+        
         return cell
     }
     
@@ -253,4 +285,11 @@ extension DetailViewController: UICollectionViewDataSource {
         return headerView
     }
     
+}
+
+extension DetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? CastCollectionViewCell else { return }
+        cell.actorImageView.kf.cancelDownloadTask()
+    }
 }

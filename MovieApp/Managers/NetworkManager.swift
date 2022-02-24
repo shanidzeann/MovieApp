@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Kingfisher
+import UIKit
 
 class NetworkManager {
     
@@ -48,5 +50,24 @@ class NetworkManager {
         urlDownloadGroup.notify(queue: DispatchQueue.global()) {
             completion(.success(movieCollection))
         }
+    }
+    
+    func downloadCast(id: Int, completion: @escaping (Result<[Cast], Error>) -> Void) {
+        guard let creditsURL = URL(string: "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(yourKey)&language=en-US") else { return }
+        
+        let task = URLSession.shared.dataTask(with: creditsURL) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let result = try JSONDecoder().decode(Credits.self, from: data)
+                    completion(.success(result.cast))
+                } catch {
+                        completion(.failure(error))
+                }
+            }
+        }
+        task.resume()
+        
     }
 }

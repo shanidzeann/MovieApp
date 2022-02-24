@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class CastCollectionViewCell: UICollectionViewCell {
     
@@ -15,8 +16,7 @@ class CastCollectionViewCell: UICollectionViewCell {
     let actorImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
-        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -24,8 +24,6 @@ class CastCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .boldSystemFont(ofSize: 12)
-        label.backgroundColor = .red
-        label.text = "Megan Fox"
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -35,9 +33,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         label.font = .systemFont(ofSize: 10)
-        label.backgroundColor = .black
         label.textAlignment = .center
-        label.text = "Telslslslsuzik"
         label.numberOfLines = 0
         return label
     }()
@@ -48,10 +44,17 @@ class CastCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         createUI()
+        layoutIfNeeded()
+     //   actorImageView.layer.cornerRadius = actorImageView.frame.height/2
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        actorImageView.layer.cornerRadius = actorImageView.frame.width/2
     }
     
     // MARK: - Helper Methods
@@ -62,9 +65,10 @@ class CastCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(characterLabel)
         
         actorImageView.snp.makeConstraints { make in
-            make.left.right.top.equalToSuperview()
-            make.bottom.equalTo(nameLabel.snp.top)
+            make.top.equalToSuperview()
             make.height.equalToSuperview().dividedBy(2.3)
+            make.width.equalTo(actorImageView.snp.height)
+            make.centerX.equalToSuperview()
         }
         
         nameLabel.snp.makeConstraints { make in
