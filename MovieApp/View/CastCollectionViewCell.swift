@@ -17,6 +17,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         return imageView
     }()
     
@@ -45,7 +46,6 @@ class CastCollectionViewCell: UICollectionViewCell {
         
         createUI()
         layoutIfNeeded()
-     //   actorImageView.layer.cornerRadius = actorImageView.frame.height/2
     }
     
     required init?(coder: NSCoder) {

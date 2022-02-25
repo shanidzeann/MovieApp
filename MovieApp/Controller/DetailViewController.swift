@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     
     var movie: Movie?
     var cast: [Cast]?
+    var details: Details?
     
     // MARK: - UI
     
@@ -42,8 +43,9 @@ class DetailViewController: UIViewController {
     private let detailsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 17)
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 0
         return label
     }()
     
@@ -131,7 +133,6 @@ class DetailViewController: UIViewController {
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         castCollectionView?.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
-        castCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView?.dataSource = self
         castCollectionView.showsVerticalScrollIndicator = false
@@ -160,9 +161,9 @@ class DetailViewController: UIViewController {
         }
         
         detailsLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom)
             make.left.right.equalToSuperview().inset(40)
-            make.height.equalTo(ratingLabel).dividedBy(1.5)
+            make.height.equalTo(ratingLabel)
         }
         
         ratingLabel.snp.makeConstraints { make in
@@ -208,7 +209,7 @@ class DetailViewController: UIViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            section.orthogonalScrollingBehavior = .continuous
+            section.orthogonalScrollingBehavior = .paging
             section.boundarySupplementaryItems = [header]
             
             return section
@@ -222,8 +223,14 @@ class DetailViewController: UIViewController {
     private func setData() {
         guard let movie = movie else { return }
         getCast(from: movie.id) {
-            DispatchQueue.main.async {
-                self.castCollectionView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.castCollectionView.reloadData()
+            }
+        }
+        
+        getDetails(from: movie.id) {
+            DispatchQueue.main.async { [weak self] in
+                self?.setDetails()
             }
         }
         
@@ -232,9 +239,30 @@ class DetailViewController: UIViewController {
         posterImageView.kf.setImage(with: url)
         
         titleLabel.text = movie.title
-        detailsLabel.text = movie.releaseDate
         ratingLabel.text = "\(movie.voteAverage)"
         descriptionTextView.text = movie.overview
+    }
+    
+    private func setDetails() {
+        guard let details = details else { return }
+
+        let releaseDate = details.releaseDate.prefix(4)
+       
+        let interval = details.runtime * 60
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .abbreviated
+        guard let runtime = formatter.string(from: TimeInterval(interval)) else { return }
+        
+        var allGenres = ""
+        for genre in details.genres {
+            allGenres.append(genre.name)
+            if genre.name != details.genres.last?.name {
+                allGenres += ", "
+            }
+        }
+        
+        detailsLabel.text = releaseDate + " · " + allGenres + " · " + runtime
     }
     
     private func getCast(from movieId: Int, completion: @escaping () -> Void) {
@@ -243,6 +271,19 @@ class DetailViewController: UIViewController {
             switch result {
             case .success(let cast):
                 self?.cast = cast
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getDetails(from movieId: Int, completion: @escaping () -> Void) {
+        details = nil
+        networkManager.downloadDetails(id: movieId) { [weak self] result in
+            switch result {
+            case .success(let details):
+                self?.details = details
                 completion()
             case .failure(let error):
                 print(error.localizedDescription)
@@ -269,17 +310,18 @@ extension DetailViewController: UICollectionViewDataSource {
         return cast?.count ?? 0
     }
     
-    #warning("что-то не так")
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
         
-        if let cast = cast?[indexPath.item],
-           let profile = cast.profilePath {
+        let cast = cast?[indexPath.item]
+        if let profile = cast?.profilePath {
             let url = URL(string: imageURL + profile)
             cell.actorImageView.kf.setImage(with: url)
-            cell.nameLabel.text = cast.name
-            cell.characterLabel.text = cast.character
+        } else {
+            cell.actorImageView.image = UIImage(systemName: "questionmark.circle")
         }
+        cell.nameLabel.text = cast?.name
+        cell.characterLabel.text = cast?.character
         
         return cell
     }

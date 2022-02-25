@@ -68,6 +68,24 @@ class NetworkManager {
             }
         }
         task.resume()
-        
     }
+    
+    func downloadDetails(id: Int, completion: @escaping (Result<Details, Error>) -> Void) {
+        guard let creditsURL = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=\(yourKey)&language=en-US") else { return }
+        
+        let task = URLSession.shared.dataTask(with: creditsURL) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let result = try JSONDecoder().decode(Details.self, from: data)
+                    completion(.success(result))
+                } catch {
+                        completion(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
+    
 }
