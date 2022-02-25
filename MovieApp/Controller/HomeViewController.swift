@@ -122,7 +122,7 @@ class HomeViewController: UIViewController {
     
 }
 
-    // MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension HomeViewController: UICollectionViewDataSource {
     
@@ -140,7 +140,17 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let movies = lists?[indexPath.section].results else { return UICollectionViewCell() }
         let movie = movies[indexPath.item]
         cell.titleLabel.text = movie.title
-        cell.dateLabel.text = movie.releaseDate
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+        
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "MMM d, yyyy"
+        
+        if let date = dateFormatterGet.date(from: movie.releaseDate) {
+            cell.dateLabel.text = dateFormatterPrint.string(from: date)
+        }
+        
         let image = movie.posterPath
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
         cell.movieImageView.kf.setImage(with: url)
@@ -158,7 +168,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
 }
 
-    // MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
