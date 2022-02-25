@@ -71,17 +71,28 @@ class NetworkManager {
     }
     
     func downloadDetails(id: Int, completion: @escaping (Result<Details, Error>) -> Void) {
-        guard let creditsURL = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=\(yourKey)&language=en-US") else { return }
+        guard let detailsURL = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=\(yourKey)&language=en-US") else { return }
         
-        let task = URLSession.shared.dataTask(with: creditsURL) { data, _, error in
+        let task = URLSession.shared.dataTask(with: detailsURL) { data, _, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data {
                 do {
                     let result = try JSONDecoder().decode(Details.self, from: data)
                     completion(.success(result))
+                 } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
                 } catch {
-                        completion(.failure(error))
+                    completion(.failure(error))
                 }
             }
         }

@@ -273,7 +273,7 @@ class DetailViewController: UIViewController {
                 self?.cast = cast
                 completion()
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error)
             }
         }
     }
