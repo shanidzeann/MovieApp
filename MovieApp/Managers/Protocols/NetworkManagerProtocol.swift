@@ -9,6 +9,5 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     func downloadMovies(completion: @escaping (Result<[List], Error>) -> Void)
-    func downloadCast(id: Int, completion: @escaping (Result<[Cast], Error>) -> Void)
-    func downloadDetails(id: Int, completion: @escaping (Result<Details, Error>) -> Void)
+    func downloadData<T: Decodable>(_ type: DataType, id: Int, completion: @escaping (Result<T, Error>) -> Void)
 }

@@ -68,10 +68,10 @@ class DetailPresenter: DetailViewPresenterProtocol {
 
     private func getCast(from movieId: Int, completion: @escaping () -> Void) {
         cast = nil
-        networkManager.downloadCast(id: movieId) { [weak self] result in
+        networkManager.downloadData(.credits, id: movieId) { [weak self] (result: Result<Credits, Error>) in
             switch result {
-            case .success(let cast):
-                self?.cast = cast
+            case .success(let credits):
+                self?.cast = credits.cast
                 completion()
             case .failure(let error):
                 print(error)
@@ -81,7 +81,7 @@ class DetailPresenter: DetailViewPresenterProtocol {
 
     private func getDetails(from movieId: Int, completion: @escaping () -> Void) {
         details = nil
-        networkManager.downloadDetails(id: movieId) { [weak self] result in
+        networkManager.downloadData(.details, id: movieId) { [weak self] (result: Result<Details, Error>) in
             switch result {
             case .success(let details):
                 self?.details = details

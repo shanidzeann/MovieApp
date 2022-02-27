@@ -9,8 +9,9 @@ import Foundation
 import Kingfisher
 import UIKit
 
-protocol NetworkManagerProtocol {
-    func downloadMovies(completion: @escaping (Result<[List], Error>) -> Void)
+enum DataType {
+    case details
+    case credits
 }
 
 class NetworkManager: NetworkManagerProtocol {
@@ -31,12 +32,10 @@ class NetworkManager: NetworkManagerProtocol {
         
         urls.forEach { url in
             urlDownloadGroup.enter()
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
+            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
                 if let error = error {
                     completion(.failure(error))
-                    urlDownloadQueue.async {
-                        urlDownloadGroup.leave()
-                    }
+                    self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
                 }
                 if let data = data {
                     do {
@@ -46,34 +45,24 @@ class NetworkManager: NetworkManagerProtocol {
                             urlDownloadGroup.leave()
                         }
                     } catch let DecodingError.dataCorrupted(context) {
-                           print(context)
-                        urlDownloadQueue.async {
-                            urlDownloadGroup.leave()
-                        }
-                       } catch let DecodingError.keyNotFound(key, context) {
-                           print("Key '\(key)' not found:", context.debugDescription)
-                           print("codingPath:", context.codingPath)
-                           urlDownloadQueue.async {
-                               urlDownloadGroup.leave()
-                           }
-                       } catch let DecodingError.valueNotFound(value, context) {
-                           print("Value '\(value)' not found:", context.debugDescription)
-                           print("codingPath:", context.codingPath)
-                           urlDownloadQueue.async {
-                               urlDownloadGroup.leave()
-                           }
-                       } catch let DecodingError.typeMismatch(type, context)  {
-                           print("Type '\(type)' mismatch:", context.debugDescription)
-                           print("codingPath:", context.codingPath)
-                           urlDownloadQueue.async {
-                               urlDownloadGroup.leave()
-                           }
-                       } catch {
-                           completion(.failure(error))
-                           urlDownloadQueue.async {
-                               urlDownloadGroup.leave()
-                           }
-                       }
+                        print(context)
+                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
+                    } catch let DecodingError.keyNotFound(key, context) {
+                        print("Key '\(key)' not found:", context.debugDescription)
+                        print("codingPath:", context.codingPath)
+                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
+                    } catch let DecodingError.valueNotFound(value, context) {
+                        print("Value '\(value)' not found:", context.debugDescription)
+                        print("codingPath:", context.codingPath)
+                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
+                    } catch let DecodingError.typeMismatch(type, context)  {
+                        print("Type '\(type)' mismatch:", context.debugDescription)
+                        print("codingPath:", context.codingPath)
+                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
+                    } catch {
+                        completion(.failure(error))
+                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
+                    }
                 }
             }.resume()
             urlDownloadGroup.wait()
@@ -84,51 +73,69 @@ class NetworkManager: NetworkManagerProtocol {
         }
     }
     
-    func downloadCast(id: Int, completion: @escaping (Result<[Cast], Error>) -> Void) {
-        guard let creditsURL = URL(string: "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(yourKey)&language=en-US") else { return }
+    private func leaveGroup(_ group: DispatchGroup, queue: DispatchQueue) {
+        queue.async {
+            group.leave()
+        }
+    }
+    
+    
+    func downloadData<T: Decodable>(_ type: DataType, id: Int, completion: @escaping (Result<T, Error>) -> Void) {
+        var url: URL?
+        switch type {
+        case .details:
+            url = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=\(yourKey)&language=en-US")
+        case .credits:
+            url = URL(string: "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(yourKey)&language=en-US")
+        }
+        guard let url = url else { return }
         
-        let task = URLSession.shared.dataTask(with: creditsURL) { data, _, error in
+        getData(url: url) { (result: Result<T, Error>) in
+            switch result {
+            case .success(let details):
+                completion(.success(details))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func getData<T: Decodable>(url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data {
-                do {
-                    let result = try JSONDecoder().decode(Credits.self, from: data)
-                    completion(.success(result.cast))
-                } catch {
+                self?.parseJSON(data: data) { (result: Result<T, Error>) in
+                    switch result {
+                    case .success(let array):
+                        completion(.success(array))
+                    case .failure(let error):
                         completion(.failure(error))
+                    }
                 }
             }
         }
         task.resume()
     }
     
-    func downloadDetails(id: Int, completion: @escaping (Result<Details, Error>) -> Void) {
-        guard let detailsURL = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=\(yourKey)&language=en-US") else { return }
-        
-        let task = URLSession.shared.dataTask(with: detailsURL) { data, _, error in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data {
-                do {
-                    let result = try JSONDecoder().decode(Details.self, from: data)
-                    completion(.success(result))
-                 } catch let DecodingError.dataCorrupted(context) {
-                    print(context)
-                } catch let DecodingError.keyNotFound(key, context) {
-                    print("Key '\(key)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.valueNotFound(value, context) {
-                    print("Value '\(value)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.typeMismatch(type, context)  {
-                    print("Type '\(type)' mismatch:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch {
-                    completion(.failure(error))
-                }
-            }
+    private func parseJSON<T: Decodable>(data: Data, completion: @escaping (Result<T, Error>) -> Void)  {
+        do {
+            let result = try JSONDecoder().decode(T.self, from: data)
+            completion(.success(result))
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch {
+            completion(.failure(error))
         }
-        task.resume()
     }
     
 }
