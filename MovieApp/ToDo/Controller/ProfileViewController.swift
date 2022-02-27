@@ -36,3 +36,7 @@ class ProfileViewController: UIViewController {
     }
 
 }
+
+extension ProfileViewController: ViewProtocol {
+    
+}
