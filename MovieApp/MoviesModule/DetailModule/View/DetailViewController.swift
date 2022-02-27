@@ -13,20 +13,16 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    let networkManager = NetworkManager()
-    let imageURL = "https://image.tmdb.org/t/p/w500"
-    
-    var movie: Movie?
-    var cast: [Cast]?
-    var details: Details?
+    var presenter: DetailViewPresenterProtocol?
     
     // MARK: - UI
     
-    private var castCollectionView: UICollectionView!
+    private var castCollectionView: UICollectionView?
     
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -109,7 +105,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-        setData()
+        presenter?.setData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -120,6 +116,9 @@ class DetailViewController: UIViewController {
     
     private func createUI() {
         view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: bookmarkButton)
+        navigationItem.backBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationController?.navigationBar.isTranslucent = true
         
         view.addSubview(posterImageView)
         view.addSubview(titleLabel)
@@ -127,27 +126,16 @@ class DetailViewController: UIViewController {
         view.addSubview(ratingLabel)
         view.addSubview(descriptionTextView)
         view.addSubview(watchButton)
-        view.addSubview(backButton)
-        view.addSubview(bookmarkButton)
         
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+        castCollectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         castCollectionView?.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
         castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView?.dataSource = self
-        castCollectionView.showsVerticalScrollIndicator = false
+        castCollectionView?.showsVerticalScrollIndicator = false
         
-        view.addSubview(castCollectionView ?? UICollectionView())
-        
-        backButton.snp.makeConstraints { make in
-            make.top.left.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.width.equalTo(30)
-        }
-        
-        bookmarkButton.snp.makeConstraints { make in
-            make.top.right.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.width.equalTo(30)
-        }
+        guard let castCollectionView = castCollectionView else { return }
+        view.addSubview(castCollectionView)
         
         posterImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
@@ -191,7 +179,6 @@ class DetailViewController: UIViewController {
             make.left.right.equalToSuperview().inset(20)
         })
         
-        backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -218,124 +205,29 @@ class DetailViewController: UIViewController {
         return layout
     }
     
-    // MARK: - Helper Methods
-    
-    private func setData() {
-        guard let movie = movie else { return }
-        getCast(from: movie.id) {
-            DispatchQueue.main.async { [weak self] in
-                self?.castCollectionView.reloadData()
-            }
-        }
-        
-        getDetails(from: movie.id) {
-            DispatchQueue.main.async { [weak self] in
-                self?.setDetails()
-            }
-        }
-        
+}
+
+// MARK: - DetailViewProtocol
+
+extension DetailViewController: DetailViewProtocol {
+    func setData(movie: Movie) {
         let image = movie.backdropPath
-        let url = URL(string: imageURL + image)
-        posterImageView.kf.setImage(with: url)
+        if let presenter = presenter {
+            let url = URL(string: presenter.imageURL + image)
+            posterImageView.kf.setImage(with: url)
+        }
         
         titleLabel.text = movie.title
         ratingLabel.text = "\(movie.voteAverage)"
         descriptionTextView.text = movie.overview
     }
     
-    private func setDetails() {
-        guard let details = details else { return }
-
-        let releaseDate = details.releaseDate.prefix(4)
-       
-        let interval = details.runtime * 60
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.unitsStyle = .abbreviated
-        guard let runtime = formatter.string(from: TimeInterval(interval)) else { return }
-        
-        var allGenres = ""
-        for genre in details.genres {
-            allGenres.append(genre.name)
-            if genre.name != details.genres.last?.name {
-                allGenres += ", "
-            }
-        }
-        
-        detailsLabel.text = releaseDate + " · " + allGenres + " · " + runtime
+    func setDetails(_ details: String) {
+        detailsLabel.text = details
     }
     
-    private func getCast(from movieId: Int, completion: @escaping () -> Void) {
-        cast = nil
-        networkManager.downloadCast(id: movieId) { [weak self] result in
-            switch result {
-            case .success(let cast):
-                self?.cast = cast
-                completion()
-            case .failure(let error):
-                print(error)
-            }
-        }
+    func updateCast() {
+        castCollectionView?.reloadData()
     }
     
-    private func getDetails(from movieId: Int, completion: @escaping () -> Void) {
-        details = nil
-        networkManager.downloadDetails(id: movieId) { [weak self] result in
-            switch result {
-            case .success(let details):
-                self?.details = details
-                completion()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    @objc private func backToHome() {
-        dismiss(animated: true)
-    }
-    
-}
-
-
-// MARK: - UICollectionViewDataSource
-
-extension DetailViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cast?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
-        
-        let cast = cast?[indexPath.item]
-        if let profile = cast?.profilePath {
-            let url = URL(string: imageURL + profile)
-            cell.actorImageView.kf.setImage(with: url)
-        } else {
-            cell.actorImageView.image = UIImage(systemName: "questionmark.circle")
-        }
-        cell.nameLabel.text = cast?.name
-        cell.characterLabel.text = cast?.character
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "castHeaderView", for: indexPath) as? CastHeaderSupplementaryView else { return UICollectionReusableView() }
-        return headerView
-    }
-    
-}
-
-extension DetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? CastCollectionViewCell else { return }
-        cell.actorImageView.kf.cancelDownloadTask()
-    }
 }

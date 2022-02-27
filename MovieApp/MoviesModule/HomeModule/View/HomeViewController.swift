@@ -23,7 +23,6 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private var collectionView: UICollectionView?
-  //  private let networkManager: NetworkManagerProtocol!
     var presenter: HomeViewPresenterProtocol!
     
     // MARK: - VC Lifecycle
@@ -38,6 +37,10 @@ class HomeViewController: UIViewController {
     // MARK: - UI
     
     private func setupNavigationBar() {
+        navigationController?.navigationBar.standardAppearance.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .white
+        
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         let label = UILabel()
@@ -106,74 +109,10 @@ class HomeViewController: UIViewController {
     
 }
 
-// MARK: - UICollectionViewDataSource
-
-extension HomeViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.lists?[section].results.count ?? 0
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return presenter.lists?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
-        
-        guard let movies = presenter.lists?[indexPath.section].results else { return UICollectionViewCell() }
-        let movie = movies[indexPath.item]
-        cell.titleLabel.text = movie.title
-        
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd"
-        
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MMM d, yyyy"
-        
-        if let date = dateFormatterGet.date(from: movie.releaseDate) {
-            cell.dateLabel.text = dateFormatterPrint.string(from: date)
-        }
-        
-        let image = movie.posterPath
-        let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
-        cell.movieImageView.kf.setImage(with: url)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HomeHeaderSupplementaryView else { return UICollectionReusableView() }
-        
-        headerView.section = indexPath.section
-        
-        return headerView
-    }
-    
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension HomeViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? MovieCollectionViewCell else { return }
-        cell.movieImageView.kf.cancelDownloadTask()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let movies = presenter.lists?[indexPath.section].results else { return }
-        let movie = movies[indexPath.item]
-        
-        let detailVC = DetailViewController()
-        detailVC.movie = movie
-        detailVC.modalPresentationStyle = .fullScreen
-        present(detailVC, animated: true, completion: nil)
-    }
-}
+// MARK: - HomeViewProtocol
 
 extension HomeViewController: HomeViewProtocol {
     func setMovies() {
         createCollectionView()
     }
-
 }
