@@ -28,20 +28,48 @@ class NetworkManager {
         urls.forEach { url in
             urlDownloadGroup.enter()
             URLSession.shared.dataTask(with: url) { (data, response, error) in
-                guard let data = data,
-                      let result = try? JSONDecoder().decode(List.self, from: data) else {
-                          if let error = error {
-                              completion(.failure(error))
-                          }
-                          urlDownloadQueue.async {
-                              urlDownloadGroup.leave()
-                          }
-                          return
-                      }
-                
-                urlDownloadQueue.async {
-                    movieCollection.append(result)
-                    urlDownloadGroup.leave()
+                if let error = error {
+                    completion(.failure(error))
+                    urlDownloadQueue.async {
+                        urlDownloadGroup.leave()
+                    }
+                }
+                if let data = data {
+                    do {
+                        let result = try JSONDecoder().decode(List.self, from: data)
+                        urlDownloadQueue.async {
+                            movieCollection.append(result)
+                            urlDownloadGroup.leave()
+                        }
+                    } catch let DecodingError.dataCorrupted(context) {
+                           print(context)
+                        urlDownloadQueue.async {
+                            urlDownloadGroup.leave()
+                        }
+                       } catch let DecodingError.keyNotFound(key, context) {
+                           print("Key '\(key)' not found:", context.debugDescription)
+                           print("codingPath:", context.codingPath)
+                           urlDownloadQueue.async {
+                               urlDownloadGroup.leave()
+                           }
+                       } catch let DecodingError.valueNotFound(value, context) {
+                           print("Value '\(value)' not found:", context.debugDescription)
+                           print("codingPath:", context.codingPath)
+                           urlDownloadQueue.async {
+                               urlDownloadGroup.leave()
+                           }
+                       } catch let DecodingError.typeMismatch(type, context)  {
+                           print("Type '\(type)' mismatch:", context.debugDescription)
+                           print("codingPath:", context.codingPath)
+                           urlDownloadQueue.async {
+                               urlDownloadGroup.leave()
+                           }
+                       } catch {
+                           completion(.failure(error))
+                           urlDownloadQueue.async {
+                               urlDownloadGroup.leave()
+                           }
+                       }
                 }
             }.resume()
             urlDownloadGroup.wait()
