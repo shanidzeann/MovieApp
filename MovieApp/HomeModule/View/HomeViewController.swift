@@ -23,8 +23,8 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private var collectionView: UICollectionView?
-    private let networkManager = NetworkManager()
-    private var lists: [List]?
+  //  private let networkManager: NetworkManagerProtocol!
+    var presenter: HomeViewPresenterProtocol!
     
     // MARK: - VC Lifecycle
     
@@ -32,23 +32,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigationBar()
-        getMovies()
-    }
-    
-    // MARK: - Helper methods
-    
-    private func getMovies() {
-        networkManager.downloadUrls { [weak self] result in
-            switch result {
-            case .success(let lists):
-                self?.lists = lists
-                DispatchQueue.main.async {
-                    self?.createCollectionView()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+        presenter.setMovies()
     }
     
     // MARK: - UI
@@ -127,17 +111,17 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return lists?[section].results.count ?? 0
+        return presenter.lists?[section].results.count ?? 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return lists?.count ?? 0
+        return presenter.lists?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
         
-        guard let movies = lists?[indexPath.section].results else { return UICollectionViewCell() }
+        guard let movies = presenter.lists?[indexPath.section].results else { return UICollectionViewCell() }
         let movie = movies[indexPath.item]
         cell.titleLabel.text = movie.title
         
@@ -177,7 +161,7 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let movies = lists?[indexPath.section].results else { return }
+        guard let movies = presenter.lists?[indexPath.section].results else { return }
         let movie = movies[indexPath.item]
         
         let detailVC = DetailViewController()
@@ -185,4 +169,11 @@ extension HomeViewController: UICollectionViewDelegate {
         detailVC.modalPresentationStyle = .fullScreen
         present(detailVC, animated: true, completion: nil)
     }
+}
+
+extension HomeViewController: HomeViewProtocol {
+    func setMovies() {
+        createCollectionView()
+    }
+
 }

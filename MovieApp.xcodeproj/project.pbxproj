@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4327CB9A6A00D0F58C /* HomePresenter.swift */; };
+		01773F4627CB9AF400D0F58C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4527CB9AF400D0F58C /* Router.swift */; };
 		8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A44F27C3E59700B4674C /* AppDelegate.swift */; };
 		8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45127C3E59700B4674C /* SceneDelegate.swift */; };
 		8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45327C3E59700B4674C /* HomeViewController.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01773F4327CB9A6A00D0F58C /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		01773F4527CB9AF400D0F58C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8915A44C27C3E59700B4674C /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8915A44F27C3E59700B4674C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8915A45127C3E59700B4674C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +68,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01773F4027CB985C00D0F58C /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				01773F4127CB988900D0F58C /* View */,
+				01773F4227CB989000D0F58C /* Presenter */,
+			);
+			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		01773F4127CB988900D0F58C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8915A45327C3E59700B4674C /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		01773F4227CB989000D0F58C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				01773F4327CB9A6A00D0F58C /* HomePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		4606EB10015FDA639CB4860E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +131,7 @@
 		8915A44E27C3E59700B4674C /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				01773F4027CB985C00D0F58C /* HomeModule */,
 				8915A44F27C3E59700B4674C /* AppDelegate.swift */,
 				8915A45127C3E59700B4674C /* SceneDelegate.swift */,
 				89A4427E27C41D8D00CADCC0 /* Model */,
@@ -112,6 +142,7 @@
 				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
 				8915A45D27C3E59900B4674C /* Info.plist */,
 				897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */,
+				01773F4527CB9AF400D0F58C /* Router.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -120,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				89A4427827C3EB7D00CADCC0 /* TabBar.swift */,
-				8915A45327C3E59700B4674C /* HomeViewController.swift */,
 				897F2AF027C50BD50080C3EE /* ProfileViewController.swift */,
 				89D2C06227C6971200BFA57B /* DetailViewController.swift */,
 			);
@@ -280,11 +310,13 @@
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
 				8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */,
 				8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */,
+				01773F4627CB9AF400D0F58C /* Router.swift in Sources */,
 				897F2AED27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift in Sources */,
 				899FB95F27C7C873005BC50D /* CastHeaderSupplementaryView.swift in Sources */,
 				897F2AEF27C5038C0080C3EE /* MovieModel.swift in Sources */,
 				897F2AEB27C4F46A0080C3EE /* ImagineItIsHidden.swift in Sources */,
 				89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */,
+				01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

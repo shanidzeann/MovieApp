@@ -9,6 +9,8 @@ import UIKit
 
 class TabBar: UITabBarController {
 
+    let networkManager = NetworkManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,7 +21,7 @@ class TabBar: UITabBarController {
     private func setupVCs() {
         viewControllers = [
             createNavController(for: HomeViewController(), title: "Home", image: UIImage(systemName: "house.fill")!),
-            createNavController(for: ProfileViewController(), title: "Profile", image: UIImage(systemName: "person.fill")!)
+            //createNavController(for: ProfileViewController(), title: "Profile", image: UIImage(systemName: "person.fill")!)
         ]
     }
     
@@ -29,10 +31,12 @@ class TabBar: UITabBarController {
         tabBar.tintColor = .white
     }
     
-    private func createNavController(for rootViewController: UIViewController,
+    private func createNavController(for rootViewController: UIViewController & HomeViewProtocol,
                                      title: String,
                                      image: UIImage) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
+        let presenter = HomePresenter(view: rootViewController, networkManager: self.networkManager)
+        rootViewController.presenter = presenter
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         navController.navigationBar.prefersLargeTitles = false
