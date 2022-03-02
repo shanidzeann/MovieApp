@@ -14,7 +14,7 @@ class HomePresenter: HomeViewPresenterProtocol {
     weak var view: HomeViewProtocol?
     var router: RouterProtocol?
     let networkManager: NetworkManagerProtocol!
-    var lists: [List]?
+    var lists: [(url: String, movies: List)]?
     
     // MARK: - Init
 
@@ -41,12 +41,12 @@ class HomePresenter: HomeViewPresenterProtocol {
     }
     
     func movie(for indexPath: IndexPath) -> Movie? {
-        guard let movies = lists?[indexPath.section].results else { return nil }
+        guard let movies = lists?[indexPath.section].movies.results else { return nil }
         return movies[indexPath.item]
     }
     
     func numberOfItemsInSection(_ section: Int) -> Int {
-        return lists?[section].results.count ?? 0
+        return lists?[section].movies.results.count ?? 0
     }
     
     func numberOfSections() -> Int {
@@ -57,5 +57,8 @@ class HomePresenter: HomeViewPresenterProtocol {
         router?.showDetail(movie: movie)
     }
 
+    func urlFor(section: Int) -> String {
+        return lists?[section].url ?? ""
+    }
 
 }

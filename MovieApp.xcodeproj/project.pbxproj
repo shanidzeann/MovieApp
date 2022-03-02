@@ -29,6 +29,9 @@
 		0186D90427D019A200476DE9 /* MovieCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90327D019A200476DE9 /* MovieCellPresenter.swift */; };
 		0186D90927D0267200476DE9 /* MovieCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90827D0267200476DE9 /* MovieCellProtocol.swift */; };
 		0186D90B27D0268C00476DE9 /* MovieCellPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */; };
+		0186D90F27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90E27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift */; };
+		0186D91427D0319D00476DE9 /* HomeHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D91327D0319D00476DE9 /* HomeHeaderPresenter.swift */; };
+		0186D91627D0322500476DE9 /* HomeHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D91527D0322500476DE9 /* HomeHeaderProtocol.swift */; };
 		8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A44F27C3E59700B4674C /* AppDelegate.swift */; };
 		8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45127C3E59700B4674C /* SceneDelegate.swift */; };
 		8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45327C3E59700B4674C /* HomeViewController.swift */; };
@@ -72,6 +75,9 @@
 		0186D90327D019A200476DE9 /* MovieCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellPresenter.swift; sourceTree = "<group>"; };
 		0186D90827D0267200476DE9 /* MovieCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellProtocol.swift; sourceTree = "<group>"; };
 		0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellPresenterProtocol.swift; sourceTree = "<group>"; };
+		0186D90E27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderPresenterProtocol.swift; sourceTree = "<group>"; };
+		0186D91327D0319D00476DE9 /* HomeHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderPresenter.swift; sourceTree = "<group>"; };
+		0186D91527D0322500476DE9 /* HomeHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderProtocol.swift; sourceTree = "<group>"; };
 		8915A44C27C3E59700B4674C /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8915A44F27C3E59700B4674C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8915A45127C3E59700B4674C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			children = (
 				0186D90627D0240700476DE9 /* Controller */,
 				0186D90727D0242900476DE9 /* Cells */,
+				0186D91227D030EB00476DE9 /* Headers */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -133,6 +140,7 @@
 			children = (
 				01773F4327CB9A6A00D0F58C /* HomePresenter.swift */,
 				0186D90327D019A200476DE9 /* MovieCellPresenter.swift */,
+				0186D91327D0319D00476DE9 /* HomeHeaderPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -200,6 +208,8 @@
 				01773F5A27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift */,
 				0186D90827D0267200476DE9 /* MovieCellProtocol.swift */,
 				0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */,
+				0186D91527D0322500476DE9 /* HomeHeaderProtocol.swift */,
+				0186D90E27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -277,6 +287,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		0186D91227D030EB00476DE9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				897F2AEC27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		4606EB10015FDA639CB4860E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,7 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */,
-				897F2AEC27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift */,
 				899FB96027C7CA5D005BC50D /* CastCollectionViewCell.swift */,
 			);
 			path = View;
@@ -352,8 +369,8 @@
 		89A4427F27C41DC000CADCC0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				01773F7727CC19DF00D0F58C /* Protocols */,
 				89A4428027C41DDA00CADCC0 /* NetworkManager.swift */,
+				01773F7727CC19DF00D0F58C /* Protocols */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -478,6 +495,7 @@
 				01773F7527CC15F300D0F58C /* AssemblyBuilderProtocol.swift in Sources */,
 				899FB96327C80F73005BC50D /* CreditsModel.swift in Sources */,
 				01773F5F27CC0E6400D0F58C /* Router.swift in Sources */,
+				0186D90F27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift in Sources */,
 				89D2C06327C6971200BFA57B /* DetailViewController.swift in Sources */,
 				899FB96127C7CA5D005BC50D /* CastCollectionViewCell.swift in Sources */,
 				89A4428127C41DDA00CADCC0 /* NetworkManager.swift in Sources */,
@@ -486,6 +504,7 @@
 				01773F6127CC0E9800D0F58C /* RouterProtocol.swift in Sources */,
 				89A8789927C8E38F0011CBBA /* DetailsModel.swift in Sources */,
 				01773F7927CC19FD00D0F58C /* NetworkManagerProtocol.swift in Sources */,
+				0186D91627D0322500476DE9 /* HomeHeaderProtocol.swift in Sources */,
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
 				0186D90B27D0268C00476DE9 /* MovieCellPresenterProtocol.swift in Sources */,
 				0186D90427D019A200476DE9 /* MovieCellPresenter.swift in Sources */,
@@ -505,6 +524,7 @@
 				89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */,
 				01773F5927CC09FD00D0F58C /* HomeViewProtocol.swift in Sources */,
 				01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */,
+				0186D91427D0319D00476DE9 /* HomeHeaderPresenter.swift in Sources */,
 				01773F6627CC0FF800D0F58C /* RouterMain.swift in Sources */,
 				01773F6A27CC13A300D0F58C /* DetailViewController+UICollectionViewDelegate.swift in Sources */,
 				01773F5727CC09F100D0F58C /* ViewProtocol.swift in Sources */,

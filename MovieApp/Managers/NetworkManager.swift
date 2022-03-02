@@ -20,13 +20,13 @@ class NetworkManager: NetworkManagerProtocol {
     let topRatedURL = URL(string: "https://api.themoviedb.org/3/movie/top_rated?api_key=\(yourKey)&language=en-US&page=1")
     let upcomingURL = URL(string: "https://api.themoviedb.org/3/movie/upcoming?api_key=\(yourKey)&language=en-US&page=1")
     
-    func downloadMovies(completion: @escaping (Result<[List], Error>) -> Void) {
+    func downloadMovies(completion: @escaping (Result<[(url: String, movies: List)], Error>) -> Void) {
         guard let popularMoviesURL = popularMoviesURL,
               let topRatedURL = topRatedURL,
               let upcoming = upcomingURL else { return }
         
         let urls = [popularMoviesURL, topRatedURL, upcoming]
-        var movieCollection: [List] = []
+        var movieCollection: [(url: String, movies: List)] = []
         let urlDownloadQueue = DispatchQueue(label: "com.urlDownloader.urlqueue")
         let urlDownloadGroup = DispatchGroup()
         
@@ -41,7 +41,7 @@ class NetworkManager: NetworkManagerProtocol {
                     do {
                         let result = try JSONDecoder().decode(List.self, from: data)
                         urlDownloadQueue.async {
-                            movieCollection.append(result)
+                            movieCollection.append((url.absoluteString, result))
                             urlDownloadGroup.leave()
                         }
                     } catch let DecodingError.dataCorrupted(context) {

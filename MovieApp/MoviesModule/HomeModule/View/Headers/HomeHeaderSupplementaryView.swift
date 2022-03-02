@@ -9,7 +9,13 @@ import UIKit
 import SnapKit
 
 class HomeHeaderSupplementaryView: UICollectionReusableView {
+    
+    // MARK: - Properties
         
+    private var presenter: HomeHeaderPresenterProtocol!
+    
+    // MARK: - UI
+    
     private let label: UILabel = {
        let label = UILabel()
         label.font = .boldSystemFont(ofSize: 19)
@@ -17,11 +23,7 @@ class HomeHeaderSupplementaryView: UICollectionReusableView {
         return label
     }()
     
-    var section: Int? {
-        didSet {
-            setTitle(for: section!)
-        }
-    }
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +35,16 @@ class HomeHeaderSupplementaryView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Helper Methods
+    
+    func inject(presenter: HomeHeaderPresenterProtocol) {
+        self.presenter = presenter
+    }
+    
+    func configure(with urlString: String) {
+        presenter.setTitle(for: urlString)
+    }
+
     func createUI() {
         addSubview(label)
         label.snp.makeConstraints { make in
@@ -41,16 +53,13 @@ class HomeHeaderSupplementaryView: UICollectionReusableView {
         }
     }
     
-    func setTitle(for section: Int) {
-        guard let sectionKind = Section(rawValue: section) else { return }
-        switch sectionKind {
-        case .popular:
-            label.text = "Popular Movie"
-        case .topRated:
-            label.text = "Top Rated"
-        case .upcoming:
-            label.text = "Upcoming"
-        }
+}
+
+
+// MARK: - HomeHeaderProtocol
+
+extension HomeHeaderSupplementaryView: HomeHeaderProtocol {
+    func setTitle(_ title: String) {
+        label.text = title
     }
-    
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 protocol NetworkManagerProtocol {
-    func downloadMovies(completion: @escaping (Result<[List], Error>) -> Void)
+    func downloadMovies(completion: @escaping (Result<[(url: String, movies: List)], Error>) -> Void)
     func downloadData<T: Decodable>(_ type: DataType, id: Int, completion: @escaping (Result<T, Error>) -> Void)
 }

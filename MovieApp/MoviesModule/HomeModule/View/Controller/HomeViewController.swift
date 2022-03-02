@@ -24,6 +24,7 @@ class HomeViewController: UIViewController {
     private var collectionView: UICollectionView?
     var presenter: HomeViewPresenterProtocol!
     var cellPresenter: MovieCellPresenterProtocol!
+    var headerPresenter: HomeHeaderPresenterProtocol!
     
     // MARK: - VC Lifecycle
     

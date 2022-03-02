@@ -10,9 +10,10 @@ import Foundation
 protocol HomeViewPresenterProtocol: AnyObject {
     init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: RouterProtocol)
     func setMovies()
-    var lists: [List]? { get set }
+    var lists: [(url: String, movies: List)]? { get set }
     func tapOnMovie(movie: Movie?)
     func movie(for indexPath: IndexPath) -> Movie?
     func numberOfItemsInSection(_ section: Int) -> Int
     func numberOfSections() -> Int
+    func urlFor(section: Int) -> String
 }

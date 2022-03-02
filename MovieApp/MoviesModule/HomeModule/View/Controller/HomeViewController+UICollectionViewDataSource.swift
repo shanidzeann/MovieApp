@@ -35,7 +35,10 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HomeHeaderSupplementaryView else { return UICollectionReusableView() }
         
-        headerView.section = indexPath.section
+        headerPresenter = HomeHeaderPresenter(view: headerView)
+        headerView.inject(presenter: headerPresenter)
+        let urlString = presenter.urlFor(section: indexPath.section)
+        headerView.configure(with: urlString)
         
         return headerView
     }
