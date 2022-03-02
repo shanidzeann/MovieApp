@@ -14,7 +14,6 @@ enum Section: Int, CaseIterable {
     case upcoming
 }
 
-// TODO: - MVP
 // TODO: - Diffable data source
 // TODO: - Custom tab bar
 
@@ -24,6 +23,7 @@ class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView?
     var presenter: HomeViewPresenterProtocol!
+    var cellPresenter: MovieCellPresenterProtocol!
     
     // MARK: - VC Lifecycle
     
@@ -51,6 +51,8 @@ class HomeViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 30)
         navigationItem.titleView = label
         
+        
+        #warning("сдвигается после перехода")
         label.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(30)
             make.right.equalToSuperview().inset(100)

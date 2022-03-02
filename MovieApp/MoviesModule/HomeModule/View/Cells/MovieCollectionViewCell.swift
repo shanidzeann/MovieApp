@@ -10,26 +10,33 @@ import SnapKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-    let movieImageView: UIImageView = {
+    // MARK: - Properties
+    
+    private var presenter: MovieCellPresenterProtocol!
+    
+    // MARK: - UI
+    
+    private let movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .boldSystemFont(ofSize: 19)
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         return label
     }()
     
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +46,16 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Helper Methods
+    
+    func inject(presenter: MovieCellPresenterProtocol) {
+        self.presenter = presenter
+    }
+    
+    func configure(movie: Movie) {
+        presenter.configure(movie: movie)
     }
     
     func createUI() {
@@ -63,4 +80,21 @@ class MovieCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        movieImageView.kf.cancelDownloadTask()
+        movieImageView.kf.setImage(with: URL(string: ""))
+        movieImageView.image = nil
+    }
+    
+}
+
+
+// MARK: -  MovieCellProtocol
+
+extension MovieCollectionViewCell: MovieCellProtocol {
+    func setData(title: String, releaseDate: String, imageURL: URL?) {
+        titleLabel.text = title
+        dateLabel.text = releaseDate
+        movieImageView.kf.setImage(with: imageURL)
+    }
 }

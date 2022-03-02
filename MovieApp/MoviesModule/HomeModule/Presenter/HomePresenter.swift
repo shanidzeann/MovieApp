@@ -7,20 +7,24 @@
 
 import Foundation
 
-
 class HomePresenter: HomeViewPresenterProtocol {
 
+    // MARK: - Properties
+    
     weak var view: HomeViewProtocol?
     var router: RouterProtocol?
     let networkManager: NetworkManagerProtocol!
     var lists: [List]?
     
+    // MARK: - Init
 
     required init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: RouterProtocol) {
         self.view = view
         self.networkManager = networkManager
         self.router = router
     }
+    
+    // MARK: - Helper Methods
 
     func setMovies() {
         networkManager.downloadMovies { [weak self] result in
@@ -34,6 +38,19 @@ class HomePresenter: HomeViewPresenterProtocol {
                 print(error)
             }
         }
+    }
+    
+    func movie(for indexPath: IndexPath) -> Movie? {
+        guard let movies = lists?[indexPath.section].results else { return nil }
+        return movies[indexPath.item]
+    }
+    
+    func numberOfItemsInSection(_ section: Int) -> Int {
+        return lists?[section].results.count ?? 0
+    }
+    
+    func numberOfSections() -> Int {
+        return lists?.count ?? 0
     }
     
     func tapOnMovie(movie: Movie?) {

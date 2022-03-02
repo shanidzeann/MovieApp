@@ -26,6 +26,9 @@
 		01773F7027CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6F27CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift */; };
 		01773F7527CC15F300D0F58C /* AssemblyBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F7427CC15F300D0F58C /* AssemblyBuilderProtocol.swift */; };
 		01773F7927CC19FD00D0F58C /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F7827CC19FD00D0F58C /* NetworkManagerProtocol.swift */; };
+		0186D90427D019A200476DE9 /* MovieCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90327D019A200476DE9 /* MovieCellPresenter.swift */; };
+		0186D90927D0267200476DE9 /* MovieCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90827D0267200476DE9 /* MovieCellProtocol.swift */; };
+		0186D90B27D0268C00476DE9 /* MovieCellPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */; };
 		8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A44F27C3E59700B4674C /* AppDelegate.swift */; };
 		8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45127C3E59700B4674C /* SceneDelegate.swift */; };
 		8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45327C3E59700B4674C /* HomeViewController.swift */; };
@@ -66,6 +69,9 @@
 		01773F6F27CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
 		01773F7427CC15F300D0F58C /* AssemblyBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilderProtocol.swift; sourceTree = "<group>"; };
 		01773F7827CC19FD00D0F58C /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		0186D90327D019A200476DE9 /* MovieCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellPresenter.swift; sourceTree = "<group>"; };
+		0186D90827D0267200476DE9 /* MovieCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellProtocol.swift; sourceTree = "<group>"; };
+		0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellPresenterProtocol.swift; sourceTree = "<group>"; };
 		8915A44C27C3E59700B4674C /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8915A44F27C3E59700B4674C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8915A45127C3E59700B4674C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,9 +122,8 @@
 		01773F4127CB988900D0F58C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8915A45327C3E59700B4674C /* HomeViewController.swift */,
-				01773F6F27CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift */,
-				01773F6D27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift */,
+				0186D90627D0240700476DE9 /* Controller */,
+				0186D90727D0242900476DE9 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				01773F4327CB9A6A00D0F58C /* HomePresenter.swift */,
+				0186D90327D019A200476DE9 /* MovieCellPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -192,6 +198,8 @@
 				01773F5627CC09F100D0F58C /* ViewProtocol.swift */,
 				01773F5827CC09FD00D0F58C /* HomeViewProtocol.swift */,
 				01773F5A27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift */,
+				0186D90827D0267200476DE9 /* MovieCellProtocol.swift */,
+				0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -249,6 +257,24 @@
 				01773F7827CC19FD00D0F58C /* NetworkManagerProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0186D90627D0240700476DE9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8915A45327C3E59700B4674C /* HomeViewController.swift */,
+				01773F6F27CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift */,
+				01773F6D27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0186D90727D0242900476DE9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		4606EB10015FDA639CB4860E /* Pods */ = {
@@ -316,7 +342,6 @@
 		89A4427D27C41D8300CADCC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				89A4427A27C4056800CADCC0 /* MovieCollectionViewCell.swift */,
 				899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */,
 				897F2AEC27C4FB520080C3EE /* HomeHeaderSupplementaryView.swift */,
 				899FB96027C7CA5D005BC50D /* CastCollectionViewCell.swift */,
@@ -447,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0186D90927D0267200476DE9 /* MovieCellProtocol.swift in Sources */,
 				01773F6427CC0F8E00D0F58C /* TabBarRouterProtocol.swift in Sources */,
 				01773F5B27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift in Sources */,
 				01773F7527CC15F300D0F58C /* AssemblyBuilderProtocol.swift in Sources */,
@@ -461,6 +487,8 @@
 				89A8789927C8E38F0011CBBA /* DetailsModel.swift in Sources */,
 				01773F7927CC19FD00D0F58C /* NetworkManagerProtocol.swift in Sources */,
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
+				0186D90B27D0268C00476DE9 /* MovieCellPresenterProtocol.swift in Sources */,
+				0186D90427D019A200476DE9 /* MovieCellPresenter.swift in Sources */,
 				01773F6827CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift in Sources */,
 				01773F6E27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift in Sources */,
 				8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */,

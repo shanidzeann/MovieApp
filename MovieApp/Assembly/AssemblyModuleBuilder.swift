@@ -28,7 +28,7 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         if rootViewController is HomeViewController {
             vc = createHomeModule(router: router)
         } else {
-            vc = createHomeModule(router: router)
+            vc = UIViewController()
         }
         navController.viewControllers = [vc]
         

@@ -12,33 +12,22 @@ import UIKit
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.lists?[section].results.count ?? 0
+        return presenter.numberOfItemsInSection(section)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return presenter.lists?.count ?? 0
+        return presenter.numberOfSections()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
         
-        guard let movies = presenter.lists?[indexPath.section].results else { return UICollectionViewCell() }
-        let movie = movies[indexPath.item]
-        cell.titleLabel.text = movie.title
+        cellPresenter = MovieCellPresenter(view: cell)
+        cell.inject(presenter: cellPresenter)
         
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd"
-        
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MMM d, yyyy"
-        
-        if let date = dateFormatterGet.date(from: movie.releaseDate) {
-            cell.dateLabel.text = dateFormatterPrint.string(from: date)
+        if let movie = presenter.movie(for: indexPath) {
+            cell.configure(movie: movie)
         }
-        
-        let image = movie.posterPath
-        let url = URL(string: "https://image.tmdb.org/t/p/w500\(image)")
-        cell.movieImageView.kf.setImage(with: url)
         
         return cell
     }
