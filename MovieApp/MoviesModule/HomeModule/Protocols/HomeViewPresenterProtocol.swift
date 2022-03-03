@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeViewPresenterProtocol: AnyObject {
-    init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: RouterProtocol)
+    init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: MoviesRouterProtocol)
     func setMovies()
     var lists: [(url: String, movies: List)]? { get set }
     func tapOnMovie(movie: Movie?)

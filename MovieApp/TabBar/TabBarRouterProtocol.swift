@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-protocol TabBarRouterProtocol: RouterMain {
+protocol TabBarRouterProtocol {
+    var assemblyBuilder: AssemblyBuilderProtocol? { get set }
     var tabBar: UITabBarController? { get set }
     func setupVCs()
 }

@@ -10,6 +10,10 @@
 		01593FE227D0E150005BEAFA /* CastCellPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FE127D0E150005BEAFA /* CastCellPresenterProtocol.swift */; };
 		01593FE427D0E1CC005BEAFA /* CastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FE327D0E1CC005BEAFA /* CastCellPresenter.swift */; };
 		01593FE927D0ECC7005BEAFA /* CastCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FE827D0ECC7005BEAFA /* CastCellProtocol.swift */; };
+		01593FEB27D0F562005BEAFA /* ProfileViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FEA27D0F562005BEAFA /* ProfileViewProtocol.swift */; };
+		01593FED27D0F5B6005BEAFA /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FEC27D0F5B6005BEAFA /* ProfilePresenter.swift */; };
+		01593FEF27D0FA0A005BEAFA /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FEE27D0FA0A005BEAFA /* ProfileRouter.swift */; };
+		01593FF827D0FE1E005BEAFA /* ProfileViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FF727D0FE1E005BEAFA /* ProfileViewPresenterProtocol.swift */; };
 		01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4327CB9A6A00D0F58C /* HomePresenter.swift */; };
 		01773F4627CB9AF400D0F58C /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4527CB9AF400D0F58C /* TabBarRouter.swift */; };
 		01773F4927CBA3B100D0F58C /* AssemblyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4827CBA3B100D0F58C /* AssemblyModuleBuilder.swift */; };
@@ -19,8 +23,8 @@
 		01773F5727CC09F100D0F58C /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F5627CC09F100D0F58C /* ViewProtocol.swift */; };
 		01773F5927CC09FD00D0F58C /* HomeViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F5827CC09FD00D0F58C /* HomeViewProtocol.swift */; };
 		01773F5B27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F5A27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift */; };
-		01773F5F27CC0E6400D0F58C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F5E27CC0E6400D0F58C /* Router.swift */; };
-		01773F6127CC0E9800D0F58C /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6027CC0E9800D0F58C /* RouterProtocol.swift */; };
+		01773F5F27CC0E6400D0F58C /* MoviesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F5E27CC0E6400D0F58C /* MoviesRouter.swift */; };
+		01773F6127CC0E9800D0F58C /* MoviesRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6027CC0E9800D0F58C /* MoviesRouterProtocol.swift */; };
 		01773F6427CC0F8E00D0F58C /* TabBarRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6327CC0F8E00D0F58C /* TabBarRouterProtocol.swift */; };
 		01773F6627CC0FF800D0F58C /* RouterMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6527CC0FF800D0F58C /* RouterMain.swift */; };
 		01773F6827CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6727CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift */; };
@@ -58,6 +62,10 @@
 		01593FE127D0E150005BEAFA /* CastCellPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellPresenterProtocol.swift; sourceTree = "<group>"; };
 		01593FE327D0E1CC005BEAFA /* CastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellPresenter.swift; sourceTree = "<group>"; };
 		01593FE827D0ECC7005BEAFA /* CastCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellProtocol.swift; sourceTree = "<group>"; };
+		01593FEA27D0F562005BEAFA /* ProfileViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewProtocol.swift; sourceTree = "<group>"; };
+		01593FEC27D0F5B6005BEAFA /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		01593FEE27D0FA0A005BEAFA /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		01593FF727D0FE1E005BEAFA /* ProfileViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		01773F4327CB9A6A00D0F58C /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		01773F4527CB9AF400D0F58C /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
 		01773F4827CBA3B100D0F58C /* AssemblyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyModuleBuilder.swift; sourceTree = "<group>"; };
@@ -67,8 +75,8 @@
 		01773F5627CC09F100D0F58C /* ViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocol.swift; sourceTree = "<group>"; };
 		01773F5827CC09FD00D0F58C /* HomeViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewProtocol.swift; sourceTree = "<group>"; };
 		01773F5A27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenterProtocol.swift; sourceTree = "<group>"; };
-		01773F5E27CC0E6400D0F58C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		01773F6027CC0E9800D0F58C /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		01773F5E27CC0E6400D0F58C /* MoviesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRouter.swift; sourceTree = "<group>"; };
+		01773F6027CC0E9800D0F58C /* MoviesRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRouterProtocol.swift; sourceTree = "<group>"; };
 		01773F6327CC0F8E00D0F58C /* TabBarRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouterProtocol.swift; sourceTree = "<group>"; };
 		01773F6527CC0FF800D0F58C /* RouterMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMain.swift; sourceTree = "<group>"; };
 		01773F6727CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
@@ -141,6 +149,66 @@
 				899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		01593FF027D0FD1E005BEAFA /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				01593FF627D0FDD5005BEAFA /* Router */,
+				01593FF527D0FDC0005BEAFA /* MainProfileModule */,
+			);
+			path = ProfileModule;
+			sourceTree = "<group>";
+		};
+		01593FF127D0FD46005BEAFA /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				01593FEA27D0F562005BEAFA /* ProfileViewProtocol.swift */,
+				01593FF727D0FE1E005BEAFA /* ProfileViewPresenterProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		01593FF227D0FD4D005BEAFA /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				01593FEC27D0F5B6005BEAFA /* ProfilePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		01593FF327D0FD5B005BEAFA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				897F2AF027C50BD50080C3EE /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		01593FF427D0FD61005BEAFA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		01593FF527D0FDC0005BEAFA /* MainProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				01593FF427D0FD61005BEAFA /* Model */,
+				01593FF327D0FD5B005BEAFA /* View */,
+				01593FF227D0FD4D005BEAFA /* Presenter */,
+				01593FF127D0FD46005BEAFA /* Protocols */,
+			);
+			path = MainProfileModule;
+			sourceTree = "<group>";
+		};
+		01593FF627D0FDD5005BEAFA /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				01593FEE27D0FA0A005BEAFA /* ProfileRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		01773F4027CB985C00D0F58C /* HomeModule */ = {
@@ -259,8 +327,8 @@
 		01773F5D27CC0D8E00D0F58C /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				01773F5E27CC0E6400D0F58C /* Router.swift */,
-				01773F6027CC0E9800D0F58C /* RouterProtocol.swift */,
+				01773F5E27CC0E6400D0F58C /* MoviesRouter.swift */,
+				01773F6027CC0E9800D0F58C /* MoviesRouterProtocol.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -282,14 +350,6 @@
 				01773F7427CC15F300D0F58C /* AssemblyBuilderProtocol.swift */,
 			);
 			path = Assembly;
-			sourceTree = "<group>";
-		};
-		01773F7627CC170F00D0F58C /* ToDo */ = {
-			isa = PBXGroup;
-			children = (
-				89A4427C27C41D6700CADCC0 /* Controller */,
-			);
-			path = ToDo;
 			sourceTree = "<group>";
 		};
 		01773F7727CC19DF00D0F58C /* Protocols */ = {
@@ -368,7 +428,7 @@
 				8915A45127C3E59700B4674C /* SceneDelegate.swift */,
 				01773F6227CC0F5500D0F58C /* TabBar */,
 				01773F5C27CC0D6400D0F58C /* MoviesModule */,
-				01773F7627CC170F00D0F58C /* ToDo */,
+				01593FF027D0FD1E005BEAFA /* ProfileModule */,
 				89A4427F27C41DC000CADCC0 /* Managers */,
 				8915A45827C3E59900B4674C /* Assets.xcassets */,
 				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
@@ -378,14 +438,6 @@
 				01773F6527CC0FF800D0F58C /* RouterMain.swift */,
 			);
 			path = MovieApp;
-			sourceTree = "<group>";
-		};
-		89A4427C27C41D6700CADCC0 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				897F2AF027C50BD50080C3EE /* ProfileViewController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		89A4427F27C41DC000CADCC0 /* Managers */ = {
@@ -513,10 +565,12 @@
 			files = (
 				0186D90927D0267200476DE9 /* MovieCellProtocol.swift in Sources */,
 				01773F6427CC0F8E00D0F58C /* TabBarRouterProtocol.swift in Sources */,
+				01593FEB27D0F562005BEAFA /* ProfileViewProtocol.swift in Sources */,
 				01773F5B27CC0A1500D0F58C /* HomeViewPresenterProtocol.swift in Sources */,
 				01773F7527CC15F300D0F58C /* AssemblyBuilderProtocol.swift in Sources */,
+				01593FF827D0FE1E005BEAFA /* ProfileViewPresenterProtocol.swift in Sources */,
 				899FB96327C80F73005BC50D /* CreditsModel.swift in Sources */,
-				01773F5F27CC0E6400D0F58C /* Router.swift in Sources */,
+				01773F5F27CC0E6400D0F58C /* MoviesRouter.swift in Sources */,
 				0186D90F27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift in Sources */,
 				89D2C06327C6971200BFA57B /* DetailViewController.swift in Sources */,
 				899FB96127C7CA5D005BC50D /* CastCollectionViewCell.swift in Sources */,
@@ -525,13 +579,14 @@
 				89A4428127C41DDA00CADCC0 /* NetworkManager.swift in Sources */,
 				89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */,
 				897F2AF127C50BD50080C3EE /* ProfileViewController.swift in Sources */,
-				01773F6127CC0E9800D0F58C /* RouterProtocol.swift in Sources */,
+				01773F6127CC0E9800D0F58C /* MoviesRouterProtocol.swift in Sources */,
 				89A8789927C8E38F0011CBBA /* DetailsModel.swift in Sources */,
 				01773F7927CC19FD00D0F58C /* NetworkManagerProtocol.swift in Sources */,
 				0186D91627D0322500476DE9 /* HomeHeaderProtocol.swift in Sources */,
 				8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */,
 				0186D90B27D0268C00476DE9 /* MovieCellPresenterProtocol.swift in Sources */,
 				0186D90427D019A200476DE9 /* MovieCellPresenter.swift in Sources */,
+				01593FED27D0F5B6005BEAFA /* ProfilePresenter.swift in Sources */,
 				01773F6827CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift in Sources */,
 				01773F6E27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift in Sources */,
 				8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */,
@@ -548,6 +603,7 @@
 				89A4427927C3EB7D00CADCC0 /* TabBar.swift in Sources */,
 				01773F5927CC09FD00D0F58C /* HomeViewProtocol.swift in Sources */,
 				01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */,
+				01593FEF27D0FA0A005BEAFA /* ProfileRouter.swift in Sources */,
 				0186D91427D0319D00476DE9 /* HomeHeaderPresenter.swift in Sources */,
 				01773F6627CC0FF800D0F58C /* RouterMain.swift in Sources */,
 				01773F5727CC09F100D0F58C /* ViewProtocol.swift in Sources */,

@@ -12,13 +12,13 @@ class HomePresenter: HomeViewPresenterProtocol {
     // MARK: - Properties
     
     weak var view: HomeViewProtocol?
-    var router: RouterProtocol?
+    var router: MoviesRouterProtocol?
     let networkManager: NetworkManagerProtocol!
     var lists: [(url: String, movies: List)]?
     
     // MARK: - Init
 
-    required init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: RouterProtocol) {
+    required init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: MoviesRouterProtocol) {
         self.view = view
         self.networkManager = networkManager
         self.router = router

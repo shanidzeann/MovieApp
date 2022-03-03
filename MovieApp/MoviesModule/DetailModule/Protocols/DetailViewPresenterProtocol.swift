@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DetailViewPresenterProtocol: AnyObject {
-    init(view: DetailViewController, networkManager: NetworkManagerProtocol, router: RouterProtocol, movie: Movie?)
+    init(view: DetailViewController, networkManager: NetworkManagerProtocol, router: MoviesRouterProtocol, movie: Movie?)
     var cast: [Cast]? { get set }
     func setData()
     func numberOfItemsInSection() -> Int

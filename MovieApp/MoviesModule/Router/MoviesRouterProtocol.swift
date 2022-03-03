@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-protocol RouterProtocol: RouterMain {
-    var navigationController: UINavigationController? { get set }
+protocol MoviesRouterProtocol: RouterMain {
     func showDetail(movie: Movie?)
 }

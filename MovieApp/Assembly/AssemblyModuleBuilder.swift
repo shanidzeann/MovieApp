@@ -11,7 +11,7 @@ import UIKit
 
 class AssemblyModuleBuilder: AssemblyBuilderProtocol {
     
-    func createHomeModule(router: RouterProtocol) -> UIViewController {
+    func createHomeModule(router: MoviesRouterProtocol) -> UIViewController {
         let networkManager = NetworkManager()
         let view = HomeViewController()
         let presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
@@ -24,11 +24,12 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
                              image: UIImage) -> UIViewController {
         let vc: UIViewController
         let navController = UINavigationController()
-        let router = Router(navigationController: navController, assemblyBuilder: self)
         if rootViewController is HomeViewController {
+            let router = MoviesRouter(navigationController: navController, assemblyBuilder: self)
             vc = createHomeModule(router: router)
         } else {
-            vc = UIViewController()
+            let router = ProfileRouter(navigationController: navController, assemblyBuilder: self)
+            vc = createProfileModule(router: router)
         }
         navController.viewControllers = [vc]
         
@@ -39,7 +40,7 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         return navController
     }
     
-    func createDetailModule(movie: Movie?, router: RouterProtocol) -> UIViewController {
+    func createDetailModule(movie: Movie?, router: MoviesRouterProtocol) -> UIViewController {
         let networkManager = NetworkManager()
         let view = DetailViewController()
         let presenter = DetailPresenter(view: view, networkManager: networkManager, router: router, movie: movie)
@@ -48,5 +49,12 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         return view
     }
     
+    func createProfileModule(router: RouterMain) -> UIViewController {
+        let networkManager = NetworkManager()
+        let view = ProfileViewController()
+        let presenter = ProfilePresenter(view: view, networkManager: networkManager, router: router)
+        view.presenter = presenter
+        return view
+    }
     
 }

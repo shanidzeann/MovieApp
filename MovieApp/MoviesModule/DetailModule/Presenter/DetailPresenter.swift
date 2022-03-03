@@ -12,13 +12,13 @@ class DetailPresenter: DetailViewPresenterProtocol {
     
     let imageURL = "https://image.tmdb.org/t/p/w500"
     weak var view: DetailViewProtocol?
-    var router: RouterProtocol?
+    var router: MoviesRouterProtocol?
     let networkManager: NetworkManagerProtocol!
     var movie: Movie?
     var cast: [Cast]?
     var details: Details?
     
-    required init(view: DetailViewController, networkManager: NetworkManagerProtocol, router: RouterProtocol, movie: Movie?) {
+    required init(view: DetailViewController, networkManager: NetworkManagerProtocol, router: MoviesRouterProtocol, movie: Movie?) {
         self.view = view
         self.networkManager = networkManager
         self.router = router
