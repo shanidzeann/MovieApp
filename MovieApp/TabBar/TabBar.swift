@@ -12,6 +12,8 @@ class TabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setColors()
+        tabBar.layer.masksToBounds = true
+        tabBar.layer.cornerRadius = 30
     }
     
     private func setColors() {
@@ -19,5 +21,21 @@ class TabBar: UITabBarController {
         tabBar.backgroundColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
         tabBar.tintColor = .white
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tabBar.frame = CGRect(x: tabBar.frame.origin.x + 15, y: tabBar.frame.origin.y - 30, width: tabBar.frame.size.width - 30, height: tabBar.frame.size.height + 10)
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            let buttons = tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
+            buttons.forEach {
+                if let superviewHeight = $0.superview?.frame.height {
+                    $0.center = CGPoint(x: $0.frame.midX, y: superviewHeight/2 - 5)
+                }
+            }
+        }
     
 }
