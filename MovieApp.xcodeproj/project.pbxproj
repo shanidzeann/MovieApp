@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01593FE227D0E150005BEAFA /* CastCellPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FE127D0E150005BEAFA /* CastCellPresenterProtocol.swift */; };
+		01593FE427D0E1CC005BEAFA /* CastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FE327D0E1CC005BEAFA /* CastCellPresenter.swift */; };
+		01593FE927D0ECC7005BEAFA /* CastCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01593FE827D0ECC7005BEAFA /* CastCellProtocol.swift */; };
 		01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4327CB9A6A00D0F58C /* HomePresenter.swift */; };
 		01773F4627CB9AF400D0F58C /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4527CB9AF400D0F58C /* TabBarRouter.swift */; };
 		01773F4927CBA3B100D0F58C /* AssemblyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F4827CBA3B100D0F58C /* AssemblyModuleBuilder.swift */; };
@@ -21,7 +24,6 @@
 		01773F6427CC0F8E00D0F58C /* TabBarRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6327CC0F8E00D0F58C /* TabBarRouterProtocol.swift */; };
 		01773F6627CC0FF800D0F58C /* RouterMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6527CC0FF800D0F58C /* RouterMain.swift */; };
 		01773F6827CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6727CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift */; };
-		01773F6A27CC13A300D0F58C /* DetailViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6927CC13A300D0F58C /* DetailViewController+UICollectionViewDelegate.swift */; };
 		01773F6E27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6D27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift */; };
 		01773F7027CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F6F27CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift */; };
 		01773F7527CC15F300D0F58C /* AssemblyBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01773F7427CC15F300D0F58C /* AssemblyBuilderProtocol.swift */; };
@@ -53,6 +55,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01593FE127D0E150005BEAFA /* CastCellPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellPresenterProtocol.swift; sourceTree = "<group>"; };
+		01593FE327D0E1CC005BEAFA /* CastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellPresenter.swift; sourceTree = "<group>"; };
+		01593FE827D0ECC7005BEAFA /* CastCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCellProtocol.swift; sourceTree = "<group>"; };
 		01773F4327CB9A6A00D0F58C /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		01773F4527CB9AF400D0F58C /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
 		01773F4827CBA3B100D0F58C /* AssemblyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyModuleBuilder.swift; sourceTree = "<group>"; };
@@ -67,7 +72,6 @@
 		01773F6327CC0F8E00D0F58C /* TabBarRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouterProtocol.swift; sourceTree = "<group>"; };
 		01773F6527CC0FF800D0F58C /* RouterMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMain.swift; sourceTree = "<group>"; };
 		01773F6727CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
-		01773F6927CC13A300D0F58C /* DetailViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		01773F6D27CC14CD00D0F58C /* HomeViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		01773F6F27CC14FC00D0F58C /* HomeViewController+UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
 		01773F7427CC15F300D0F58C /* AssemblyBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilderProtocol.swift; sourceTree = "<group>"; };
@@ -114,6 +118,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01593FE527D0EC8B005BEAFA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				89D2C06227C6971200BFA57B /* DetailViewController.swift */,
+				01773F6727CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		01593FE627D0EC93005BEAFA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				899FB96027C7CA5D005BC50D /* CastCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		01593FE727D0ECB2005BEAFA /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		01773F4027CB985C00D0F58C /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				01773F4E27CBD86A00D0F58C /* DetailPresenter.swift */,
+				01593FE327D0E1CC005BEAFA /* CastCellPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -167,9 +197,9 @@
 		01773F4B27CBA4F100D0F58C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				89D2C06227C6971200BFA57B /* DetailViewController.swift */,
-				01773F6727CC136B00D0F58C /* DetailViewController+UICollectionViewDataSource.swift */,
-				01773F6927CC13A300D0F58C /* DetailViewController+UICollectionViewDelegate.swift */,
+				01593FE527D0EC8B005BEAFA /* Controller */,
+				01593FE627D0EC93005BEAFA /* Cells */,
+				01593FE727D0ECB2005BEAFA /* Headers */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,6 +226,8 @@
 			children = (
 				01773F5127CC097500D0F58C /* DetailViewProtocol.swift */,
 				01773F5327CC098300D0F58C /* DetailViewPresenterProtocol.swift */,
+				01593FE827D0ECC7005BEAFA /* CastCellProtocol.swift */,
+				01593FE127D0E150005BEAFA /* CastCellPresenterProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -255,7 +287,6 @@
 		01773F7627CC170F00D0F58C /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				89A4427D27C41D8300CADCC0 /* View */,
 				89A4427C27C41D6700CADCC0 /* Controller */,
 			);
 			path = ToDo;
@@ -355,15 +386,6 @@
 				897F2AF027C50BD50080C3EE /* ProfileViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		89A4427D27C41D8300CADCC0 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				899FB95E27C7C873005BC50D /* CastHeaderSupplementaryView.swift */,
-				899FB96027C7CA5D005BC50D /* CastCollectionViewCell.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		89A4427F27C41DC000CADCC0 /* Managers */ = {
@@ -498,6 +520,8 @@
 				0186D90F27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift in Sources */,
 				89D2C06327C6971200BFA57B /* DetailViewController.swift in Sources */,
 				899FB96127C7CA5D005BC50D /* CastCollectionViewCell.swift in Sources */,
+				01593FE927D0ECC7005BEAFA /* CastCellProtocol.swift in Sources */,
+				01593FE427D0E1CC005BEAFA /* CastCellPresenter.swift in Sources */,
 				89A4428127C41DDA00CADCC0 /* NetworkManager.swift in Sources */,
 				89A4427B27C4056800CADCC0 /* MovieCollectionViewCell.swift in Sources */,
 				897F2AF127C50BD50080C3EE /* ProfileViewController.swift in Sources */,
@@ -526,8 +550,8 @@
 				01773F4427CB9A6A00D0F58C /* HomePresenter.swift in Sources */,
 				0186D91427D0319D00476DE9 /* HomeHeaderPresenter.swift in Sources */,
 				01773F6627CC0FF800D0F58C /* RouterMain.swift in Sources */,
-				01773F6A27CC13A300D0F58C /* DetailViewController+UICollectionViewDelegate.swift in Sources */,
 				01773F5727CC09F100D0F58C /* ViewProtocol.swift in Sources */,
+				01593FE227D0E150005BEAFA /* CastCellPresenterProtocol.swift in Sources */,
 				01773F5227CC097500D0F58C /* DetailViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

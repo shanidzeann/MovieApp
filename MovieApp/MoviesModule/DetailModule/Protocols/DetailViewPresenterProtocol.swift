@@ -10,6 +10,7 @@ import Foundation
 protocol DetailViewPresenterProtocol: AnyObject {
     init(view: DetailViewController, networkManager: NetworkManagerProtocol, router: RouterProtocol, movie: Movie?)
     var cast: [Cast]? { get set }
-    var imageURL: String { get }
     func setData()
+    func numberOfItemsInSection() -> Int
+    func cast(for indexPath: IndexPath) -> Cast?
 }

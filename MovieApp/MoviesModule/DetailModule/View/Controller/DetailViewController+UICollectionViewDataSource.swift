@@ -12,21 +12,18 @@ import UIKit
 extension DetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.cast?.count ?? 0
+        return presenter.numberOfItemsInSection()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
         
-        let cast = presenter?.cast?[indexPath.item]
-        if let profile = cast?.profilePath, let presenter = presenter {
-            let url = URL(string: presenter.imageURL + profile)
-            cell.actorImageView.kf.setImage(with: url)
-        } else {
-            cell.actorImageView.image = UIImage(systemName: "questionmark.circle")
+        cellPresenter = CastCellPresenter(view: cell)
+        cell.inject(presenter: cellPresenter)
+        
+        if let cast = presenter.cast(for: indexPath) {
+            cell.configure(with: cast)
         }
-        cell.nameLabel.text = cast?.name
-        cell.characterLabel.text = cast?.character
         
         return cell
     }

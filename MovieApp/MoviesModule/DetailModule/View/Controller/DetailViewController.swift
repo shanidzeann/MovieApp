@@ -13,7 +13,8 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    var presenter: DetailViewPresenterProtocol?
+    var presenter: DetailViewPresenterProtocol!
+    var cellPresenter: CastCellPresenterProtocol!
     
     // MARK: - UI
     
@@ -105,7 +106,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-        presenter?.setData()
+        presenter.setData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -210,16 +211,12 @@ class DetailViewController: UIViewController {
 // MARK: - DetailViewProtocol
 
 extension DetailViewController: DetailViewProtocol {
-    func setData(movie: Movie) {
-        let image = movie.backdropPath
-        if let presenter = presenter {
-            let url = URL(string: presenter.imageURL + image)
-            posterImageView.kf.setImage(with: url)
-        }
-        
-        titleLabel.text = movie.title
-        ratingLabel.text = "\(movie.voteAverage)"
-        descriptionTextView.text = movie.overview
+    
+    func setData(posterUrl: URL?, title: String, rating: String, description: String?) {
+        posterImageView.kf.setImage(with: posterUrl)
+        titleLabel.text = title
+        ratingLabel.text = rating
+        descriptionTextView.text = description
     }
     
     func setDetails(_ details: String) {

@@ -39,7 +39,14 @@ class DetailPresenter: DetailViewPresenterProtocol {
             }
         }
         
-        view?.setData(movie: movie)
+        let image = movie.backdropPath
+        let url = URL(string: imageURL + image)
+        let title = movie.title
+        let rating = "\(movie.voteAverage)"
+        let description = movie.overview
+    
+        
+        view?.setData(posterUrl: url, title: title, rating: rating, description: description)
     }
     
     
@@ -90,6 +97,14 @@ class DetailPresenter: DetailViewPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func numberOfItemsInSection() -> Int {
+        return cast?.count ?? 0
+    }
+    
+    func cast(for indexPath: IndexPath) -> Cast? {
+        return cast?[indexPath.item]
     }
     
 }

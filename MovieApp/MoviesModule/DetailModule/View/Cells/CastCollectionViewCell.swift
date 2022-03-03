@@ -11,6 +11,10 @@ import Kingfisher
 
 class CastCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    private var presenter: CastCellPresenterProtocol!
+    
     // MARK: - UI
     
     let actorImageView: UIImageView = {
@@ -59,6 +63,15 @@ class CastCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Helper Methods
     
+    func inject(presenter: CastCellPresenterProtocol) {
+        self.presenter = presenter
+    }
+    
+    func configure(with cast: Cast) {
+        presenter.configure(with: cast)
+    }
+    
+    
     func createUI() {
         contentView.addSubview(actorImageView)
         contentView.addSubview(nameLabel)
@@ -81,5 +94,25 @@ class CastCollectionViewCell: UICollectionViewCell {
             make.left.right.equalToSuperview()
         }
         
+    }
+    
+    override func prepareForReuse() {
+        actorImageView.kf.cancelDownloadTask()
+        actorImageView.kf.setImage(with: URL(string: ""))
+        actorImageView.image = nil
+    }
+}
+
+// MARK: -  CastCellProtocol
+
+extension CastCollectionViewCell: CastCellProtocol {
+    func setData(profileUrl: URL?, name: String, character: String?) {
+        if let url = profileUrl {
+            actorImageView.kf.setImage(with: url)
+        } else {
+            actorImageView.image = UIImage(systemName: "questionmark.circle")
+        }
+        nameLabel.text = name
+        characterLabel.text = character
     }
 }
