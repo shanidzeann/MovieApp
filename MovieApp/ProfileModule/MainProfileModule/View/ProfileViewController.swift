@@ -10,6 +10,8 @@ import SnapKit
 
 class ProfileViewController: UIViewController {
 
+    var presenter: ProfileViewPresenterProtocol!
+    
     private let label: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 25)
@@ -37,6 +39,6 @@ class ProfileViewController: UIViewController {
 
 }
 
-extension ProfileViewController: ViewProtocol {
+extension ProfileViewController: ProfileViewProtocol {
     
 }
