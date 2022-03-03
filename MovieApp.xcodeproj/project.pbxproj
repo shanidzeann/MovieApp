@@ -154,7 +154,7 @@
 		01593FF027D0FD1E005BEAFA /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
-				01593FF627D0FDD5005BEAFA /* Router */,
+				01593FF627D0FDD5005BEAFA /* ProfileRouter */,
 				01593FF527D0FDC0005BEAFA /* MainProfileModule */,
 			);
 			path = ProfileModule;
@@ -203,12 +203,40 @@
 			path = MainProfileModule;
 			sourceTree = "<group>";
 		};
-		01593FF627D0FDD5005BEAFA /* Router */ = {
+		01593FF627D0FDD5005BEAFA /* ProfileRouter */ = {
 			isa = PBXGroup;
 			children = (
 				01593FEE27D0FA0A005BEAFA /* ProfileRouter.swift */,
 			);
+			path = ProfileRouter;
+			sourceTree = "<group>";
+		};
+		01593FF927D100D0005BEAFA /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				01773F6527CC0FF800D0F58C /* RouterMain.swift */,
+			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		01593FFA27D10119005BEAFA /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				8915A44F27C3E59700B4674C /* AppDelegate.swift */,
+				8915A45127C3E59700B4674C /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		01593FFB27D1012A005BEAFA /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8915A45827C3E59900B4674C /* Assets.xcassets */,
+				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
+				8915A45D27C3E59900B4674C /* Info.plist */,
+				897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		01773F4027CB985C00D0F58C /* HomeModule */ = {
@@ -317,20 +345,20 @@
 		01773F5C27CC0D6400D0F58C /* MoviesModule */ = {
 			isa = PBXGroup;
 			children = (
-				01773F5D27CC0D8E00D0F58C /* Router */,
+				01773F5D27CC0D8E00D0F58C /* MoviesRouter */,
 				01773F4027CB985C00D0F58C /* HomeModule */,
 				01773F4727CBA2D100D0F58C /* DetailModule */,
 			);
 			path = MoviesModule;
 			sourceTree = "<group>";
 		};
-		01773F5D27CC0D8E00D0F58C /* Router */ = {
+		01773F5D27CC0D8E00D0F58C /* MoviesRouter */ = {
 			isa = PBXGroup;
 			children = (
 				01773F5E27CC0E6400D0F58C /* MoviesRouter.swift */,
 				01773F6027CC0E9800D0F58C /* MoviesRouterProtocol.swift */,
 			);
-			path = Router;
+			path = MoviesRouter;
 			sourceTree = "<group>";
 		};
 		01773F6227CC0F5500D0F58C /* TabBar */ = {
@@ -424,18 +452,14 @@
 		8915A44E27C3E59700B4674C /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
-				8915A44F27C3E59700B4674C /* AppDelegate.swift */,
-				8915A45127C3E59700B4674C /* SceneDelegate.swift */,
+				01593FFA27D10119005BEAFA /* AppDelegate */,
 				01773F6227CC0F5500D0F58C /* TabBar */,
 				01773F5C27CC0D6400D0F58C /* MoviesModule */,
 				01593FF027D0FD1E005BEAFA /* ProfileModule */,
-				89A4427F27C41DC000CADCC0 /* Managers */,
-				8915A45827C3E59900B4674C /* Assets.xcassets */,
-				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
-				8915A45D27C3E59900B4674C /* Info.plist */,
-				897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */,
+				01593FF927D100D0005BEAFA /* Router */,
 				01773F7327CC15E200D0F58C /* Assembly */,
-				01773F6527CC0FF800D0F58C /* RouterMain.swift */,
+				89A4427F27C41DC000CADCC0 /* Managers */,
+				01593FFB27D1012A005BEAFA /* SupportingFiles */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -752,7 +776,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D3M2362AJ6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MovieApp/Info.plist;
+				INFOPLIST_FILE = MovieApp/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -781,7 +805,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D3M2362AJ6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MovieApp/Info.plist;
+				INFOPLIST_FILE = MovieApp/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
