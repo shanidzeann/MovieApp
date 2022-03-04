@@ -105,21 +105,6 @@ class HomeViewController: UIViewController {
         return layout
     }
     
-    private func createGradient() {
-        let view = UIView(frame: CGRect(x: 0, y: view.bounds.maxY - 100, width: view.bounds.width, height: 100))
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.colors = [CGColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 0), CGColor(red: 0, green: 0, blue: 0, alpha: 0.7) ]
-        gradient.locations = [0.0, 1.0]
-        view.layer.insertSublayer(gradient, at: 0)
-        self.view.addSubview(view)
-        self.view.bringSubviewToFront(view)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        createGradient()
-    }
-    
 }
 
 // MARK: - HomeViewProtocol
