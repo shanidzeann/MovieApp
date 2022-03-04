@@ -117,9 +117,6 @@ class DetailViewController: UIViewController {
     
     private func createUI() {
         view.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: bookmarkButton)
-        navigationItem.backBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationController?.navigationBar.isTranslucent = true
         
         view.addSubview(posterImageView)
         view.addSubview(titleLabel)
@@ -127,6 +124,8 @@ class DetailViewController: UIViewController {
         view.addSubview(ratingLabel)
         view.addSubview(descriptionTextView)
         view.addSubview(watchButton)
+        view.addSubview(backButton)
+        view.addSubview(bookmarkButton)
         
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         castCollectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
@@ -180,6 +179,17 @@ class DetailViewController: UIViewController {
             make.left.right.equalToSuperview().inset(20)
         })
         
+        backButton.snp.makeConstraints { make in
+            make.top.left.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.width.height.equalTo(30.0)
+        }
+        
+        bookmarkButton.snp.makeConstraints { make in
+            make.top.right.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.width.height.equalTo(30)
+        }
+        
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -204,6 +214,10 @@ class DetailViewController: UIViewController {
         }
         
         return layout
+    }
+    
+    @objc private func backButtonTapped() {
+        presenter.backToHome()
     }
     
 }

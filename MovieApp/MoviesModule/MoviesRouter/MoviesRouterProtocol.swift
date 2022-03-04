@@ -10,4 +10,5 @@ import UIKit
 
 protocol MoviesRouterProtocol: RouterMain {
     func showDetail(movie: Movie?)
+    func backToHome(from viewController:  DetailViewProtocol?)
 }
