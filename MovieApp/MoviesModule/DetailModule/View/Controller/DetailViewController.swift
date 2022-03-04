@@ -106,6 +106,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
+        makeContstraints()
+        addTargets()
         presenter.setData()
     }
     
@@ -128,14 +130,42 @@ class DetailViewController: UIViewController {
         view.addSubview(bookmarkButton)
         
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        castCollectionView?.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        castCollectionView?.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
-        castCollectionView?.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
-        castCollectionView?.dataSource = self
-        castCollectionView?.showsVerticalScrollIndicator = false
-        
         guard let castCollectionView = castCollectionView else { return }
+        castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
+        castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
+        castCollectionView.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
+        castCollectionView.dataSource = self
+        castCollectionView.showsVerticalScrollIndicator = false
+    
         view.addSubview(castCollectionView)
+    }
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+            header.pinToVisibleBounds = true
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.orthogonalScrollingBehavior = .paging
+            section.boundarySupplementaryItems = [header]
+            
+            return section
+        }
+        
+        return layout
+    }
+    
+    private func makeContstraints() {
+        guard let castCollectionView = castCollectionView else { return }
         
         posterImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
@@ -188,33 +218,13 @@ class DetailViewController: UIViewController {
             make.top.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.width.height.equalTo(30)
         }
-        
+    }
+    
+    private func addTargets() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
-            header.pinToVisibleBounds = true
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            section.orthogonalScrollingBehavior = .paging
-            section.boundarySupplementaryItems = [header]
-            
-            return section
-        }
-        
-        return layout
-    }
+    // MARK: - Routing
     
     @objc private func backButtonTapped() {
         presenter.backToHome()
