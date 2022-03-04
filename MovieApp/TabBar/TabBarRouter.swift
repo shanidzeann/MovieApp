@@ -21,8 +21,8 @@ class TabBarRouter: TabBarRouterProtocol {
     
     func setupVCs() {
         tabBar?.viewControllers = [
-            assemblyBuilder!.createNavController(for: HomeViewController(), title: "Home", image: UIImage(systemName: "house.fill")!),
-            assemblyBuilder!.createNavController(for: ProfileViewController(), title: "Profile", image: UIImage(systemName: "person.fill")!)
+            assemblyBuilder!.createHomeViewController(HomeViewController()),
+            assemblyBuilder!.createProfileViewController()
         ]
     }
     
