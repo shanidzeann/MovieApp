@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol AssemblyBuilderProtocol {
-    func createHomeModule(_ viewController: UIViewController & HomeViewProtocol, router: MoviesRouterProtocol) -> UIViewController
+    func createHomeModule(_ view: HomeViewProtocol, router: MoviesRouterProtocol) -> UIViewController 
     func createDetailModule(movie: Movie?, router: MoviesRouterProtocol) -> UIViewController
-    func createHomeViewController(_ viewController: UIViewController & HomeViewProtocol) -> UIViewController
+    func createHomeViewController(_ view: HomeViewProtocol) -> UIViewController
     func createProfileViewController() -> UIViewController
 }

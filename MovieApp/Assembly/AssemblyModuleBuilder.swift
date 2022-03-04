@@ -11,18 +11,17 @@ import UIKit
 
 class AssemblyModuleBuilder: AssemblyBuilderProtocol {
     
-    func createHomeModule(_ viewController: UIViewController & HomeViewProtocol, router: MoviesRouterProtocol) -> UIViewController {
+    func createHomeModule(_ view: HomeViewProtocol, router: MoviesRouterProtocol) -> UIViewController {
         let networkManager = NetworkManager()
-        let view = viewController
-        let presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
+        let presenter = HomePresenter(view: (view as! HomeViewController), networkManager: networkManager, router: router)
         view.presenter = presenter
-        return view
+        return view as! HomeViewController
     }
 
-    func createHomeViewController(_ viewController: UIViewController & HomeViewProtocol) -> UIViewController {
+    func createHomeViewController(_ view: HomeViewProtocol) -> UIViewController {
         let navController = UINavigationController()
-        let router = MoviesRouter(viewController: viewController, assemblyBuilder: self)
-        let vc = createHomeModule(viewController, router: router)
+        let router = MoviesRouter(viewController: view, assemblyBuilder: self)
+        let vc = createHomeModule(view, router: router)
         navController.viewControllers = [vc]
         navController.tabBarItem.title = "Home"
         navController.tabBarItem.image = UIImage(systemName: "house.fill")

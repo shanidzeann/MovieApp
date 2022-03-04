@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 class MoviesRouter: MoviesRouterProtocol {
-    var viewController: UIViewController?
+    var viewController: HomeViewProtocol?
     var assemblyBuilder: AssemblyBuilderProtocol?
     
-    init(viewController: UIViewController, assemblyBuilder: AssemblyBuilderProtocol) {
+    init(viewController: HomeViewProtocol, assemblyBuilder: AssemblyBuilderProtocol) {
         self.viewController = viewController
         self.assemblyBuilder = assemblyBuilder
     }
@@ -20,7 +20,7 @@ class MoviesRouter: MoviesRouterProtocol {
     func showDetail(movie: Movie?) {
         guard let detailViewController = assemblyBuilder?.createDetailModule(movie: movie, router: self) else { return }
         detailViewController.modalPresentationStyle = .fullScreen
-        viewController?.present(detailViewController, animated: true)
+        (viewController as? HomeViewController)?.present(detailViewController, animated: true)
     }
     
     func backToHome(from viewController: DetailViewProtocol?) {
