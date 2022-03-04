@@ -107,6 +107,10 @@ class DetailPresenter: DetailViewPresenterProtocol {
         return cast?[indexPath.item]
     }
     
+    func backToHome() {
+        router?.backToHome(from: view)
+    }
+    
 }
 
 
