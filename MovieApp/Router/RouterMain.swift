@@ -9,6 +9,5 @@ import Foundation
 import UIKit
 
 protocol RouterMain {
-    var navigationController: UINavigationController? { get set }
     var assemblyBuilder: AssemblyBuilderProtocol? { get set }
 }
