@@ -8,12 +8,6 @@
 import UIKit
 import Kingfisher
 
-enum Section: Int, CaseIterable {
-    case popular
-    case topRated
-    case upcoming
-}
-
 class HomeViewController: UIViewController {
     
     // MARK: - Properties
@@ -23,46 +17,50 @@ class HomeViewController: UIViewController {
     var cellPresenter: MovieCellPresenterProtocol!
     var headerPresenter: HomeHeaderPresenterProtocol!
     
-    // MARK: - VC Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupNavigationBar()
-        presenter.setMovies()
-    }
-    
     // MARK: - UI
     
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.standardAppearance.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.tintColor = .white
-        
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Home"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .white
         label.font = .boldSystemFont(ofSize: 30)
-        navigationItem.titleView = label
-
-        
-        #warning("сдвигается после перехода")
-        label.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(30)
-            make.right.equalToSuperview().inset(100)
-        }
-        
+        return label
+    }()
+    
+    private let searchButton: UIButton = {
         let button = UIButton(configuration: .plain(), primaryAction: nil)
         var config = UIButton.Configuration.plain()
         config.image = UIImage(systemName: "magnifyingglass")
         button.configuration = config
         button.tintColor = .white
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        return button
+    }()
+    
+    // MARK: - VC Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupNavigationBar()
+        setupConstraints()
+        presenter.setMovies()
+    }
+    
+    // MARK: - UI
+    
+    private func setupNavigationBar() {
+        navigationItem.titleView = titleLabel
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
+    }
+    
+    private func setupConstraints() {
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(30)
+            make.right.equalToSuperview().inset(100)
+        }
     }
     
     private func createCollectionView() {
