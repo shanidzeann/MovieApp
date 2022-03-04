@@ -36,13 +36,14 @@ class TabBar: UITabBarController {
     
     
     override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-            let buttons = tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
-            buttons.forEach {
-                if let superviewHeight = $0.superview?.frame.height {
-                    $0.center = CGPoint(x: $0.frame.midX, y: superviewHeight/2 - 5)
-                }
+        super.viewDidAppear(animated)
+        let buttons = tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
+        buttons.forEach {
+            if let superviewHeight = $0.superview?.frame.height {
+                $0.center = CGPoint(x: $0.frame.midX, y: superviewHeight/2 - 5)
             }
         }
+    }
+    
     
 }
