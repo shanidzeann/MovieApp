@@ -171,8 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				017A9FF727D294D2007DB155 /* MockNetworkManager.swift */,
-				013ED92527D3BC6E00E3F3B4 /* DetailModuleTest */,
 				017A9FF227D283EC007DB155 /* HomeModuleTest */,
+				013ED92527D3BC6E00E3F3B4 /* DetailModuleTest */,
 			);
 			path = MoviesModuleTest;
 			sourceTree = "<group>";

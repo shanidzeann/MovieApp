@@ -35,34 +35,19 @@ class HomePresenterTest: XCTestCase {
         networkManager = MockNetworkManager(lists: lists)
         presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
         
-        var catchLists: [(url: String, movies: List)]?
+        presenter.setMovies()
+        let listsCount = presenter.lists?.count
         
-        networkManager.downloadMovies { result in
-            switch result {
-            case .success(let lists):
-                catchLists = lists
-            case .failure(let error):
-                print(error)
-            }
-        }
-        XCTAssertNotEqual(catchLists?.count, 0)
+        XCTAssertNotNil(listsCount)
+        XCTAssertNotEqual(listsCount, 0)
     }
+    
     
     func testGetFailureMovieLists() {
         networkManager = MockNetworkManager()
         presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
         
-        var catchError: Error?
-        
-        networkManager.downloadMovies { result in
-            switch result {
-            case .success(_):
-                break
-            case .failure(let error):
-                catchError = error
-            }
-        }
-        
-        XCTAssertNotNil(catchError)
+        presenter.setMovies()
+        XCTAssertNil(presenter.lists)
     }
 }
