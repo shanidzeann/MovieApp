@@ -33,7 +33,6 @@ class DetailViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 25)
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
-        label.numberOfLines = 0
         return label
     }()
     
@@ -42,7 +41,6 @@ class DetailViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 0
         return label
     }()
     
@@ -53,15 +51,13 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    private let descriptionTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = nil
-        textView.textColor = .white
-        textView.font = .systemFont(ofSize: 17)
-        textView.isEditable = false
-        textView.isSelectable = false
-        textView.showsVerticalScrollIndicator = false
-        return textView
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
+        return label
     }()
     
     private let watchButton: UIButton = {
@@ -112,6 +108,7 @@ class DetailViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         _ = setupGradient
     }
     
@@ -124,19 +121,20 @@ class DetailViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(detailsLabel)
         view.addSubview(ratingLabel)
-        view.addSubview(descriptionTextView)
+        view.addSubview(descriptionLabel)
         view.addSubview(watchButton)
         view.addSubview(backButton)
         view.addSubview(bookmarkButton)
         
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         guard let castCollectionView = castCollectionView else { return }
+        castCollectionView.isScrollEnabled = false
         castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
         castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
         castCollectionView.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
         castCollectionView.dataSource = self
         castCollectionView.showsVerticalScrollIndicator = false
-    
+        
         view.addSubview(castCollectionView)
     }
     
@@ -145,11 +143,11 @@ class DetailViewController: UIViewController {
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 5)
+            item.contentInsets = .init(top: 2, leading: 1, bottom: 0, trailing: 1)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(20.0))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
             header.pinToVisibleBounds = true
             
@@ -179,35 +177,35 @@ class DetailViewController: UIViewController {
         }
         
         detailsLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(40)
-            make.height.equalTo(ratingLabel)
+            make.height.equalTo(ratingLabel).dividedBy(2)
         }
         
         ratingLabel.snp.makeConstraints { make in
-            make.top.equalTo(detailsLabel.snp.bottom).offset(10)
+            make.top.equalTo(detailsLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(40)
-            make.height.equalTo(descriptionTextView).dividedBy(7)
+            make.height.equalTo(descriptionLabel).dividedBy(7)
         }
         
-        descriptionTextView.snp.makeConstraints { make in
-            make.top.equalTo(ratingLabel.snp.bottom).offset(10)
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(ratingLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(castCollectionView).dividedBy(1.3)
-        }
-        
-        watchButton.snp.makeConstraints { make in
-            make.top.equalTo(castCollectionView.snp.bottom).offset(10)
-            make.height.equalTo(50)
-            make.width.equalTo(200)
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         castCollectionView.snp.makeConstraints({ make in
-            make.top.equalTo(descriptionTextView.snp.bottom).offset(10)
+            make.top.greaterThanOrEqualTo(descriptionLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(20)
+            make.height.equalToSuperview().dividedBy(5)
         })
+        
+        watchButton.snp.makeConstraints { make in
+            make.top.equalTo(castCollectionView.snp.bottom).offset(10)
+            make.width.equalToSuperview().dividedBy(2)
+            make.height.equalTo(watchButton.snp.width).dividedBy(4)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
         
         backButton.snp.makeConstraints { make in
             make.top.left.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -223,6 +221,7 @@ class DetailViewController: UIViewController {
     private func addTargets() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
+    
     
     // MARK: - Routing
     
@@ -240,7 +239,7 @@ extension DetailViewController: DetailViewProtocol {
         posterImageView.kf.setImage(with: posterUrl)
         titleLabel.text = title
         ratingLabel.text = rating
-        descriptionTextView.text = description
+        descriptionLabel.text = description
     }
     
     func setDetails(_ details: String) {

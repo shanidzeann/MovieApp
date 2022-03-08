@@ -28,18 +28,20 @@ class CastCollectionViewCell: UICollectionViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .boldSystemFont(ofSize: 12)
+        label.font = .boldSystemFont(ofSize: 10)
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
         return label
     }()
     
     let characterLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 9)
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         return label
     }()
     
@@ -79,7 +81,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         
         actorImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.height.equalToSuperview().dividedBy(2.3)
+            make.height.equalToSuperview().dividedBy(2.5)
             make.width.equalTo(actorImageView.snp.height)
             make.centerX.equalToSuperview()
         }
