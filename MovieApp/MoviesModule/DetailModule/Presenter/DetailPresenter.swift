@@ -10,6 +10,8 @@ import Foundation
 
 class DetailPresenter: DetailViewPresenterProtocol {
     
+    // MARK: - Properties
+    
     let imageURL = "https://image.tmdb.org/t/p/w500"
     weak var view: DetailViewProtocol?
     var router: MoviesRouterProtocol?
@@ -18,12 +20,16 @@ class DetailPresenter: DetailViewPresenterProtocol {
     var cast: [Cast]?
     var details: Details?
     
+    // MARK: - Init
+    
     required init(view: DetailViewController, networkManager: NetworkManagerProtocol, router: MoviesRouterProtocol, movie: Movie?) {
         self.view = view
         self.networkManager = networkManager
         self.router = router
         self.movie = movie
     }
+    
+    // MARK: - Methods
     
     func setData() {
         guard let movie = movie else { return }
@@ -44,17 +50,37 @@ class DetailPresenter: DetailViewPresenterProtocol {
         let title = movie.title
         let rating = "\(movie.voteAverage)"
         let description = movie.overview
-    
+        
         
         view?.setData(posterUrl: url, title: title, rating: rating, description: description)
     }
     
+    func numberOfItemsInSection() -> Int {
+        return cast?.count ?? 0
+    }
+    
+    func cast(for indexPath: IndexPath) -> Cast? {
+        return cast?[indexPath.item]
+    }
+    
+    func backToHome() {
+        router?.backToHome(from: view)
+    }
+    
+    func showMovie() {
+        guard let details = details,
+              let homePageURL = details.homepage,
+              let url = URL(string: homePageURL) else { return }
+        router?.openInSafari(url: url)
+    }
+    
+    // MARK: - Private
     
     private func setDetails() {
         guard let details = details else { return }
-
+        
         let releaseDate = details.releaseDate.prefix(4)
-       
+        
         let interval = details.runtime * 60
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute]
@@ -72,7 +98,7 @@ class DetailPresenter: DetailViewPresenterProtocol {
         let allDetails = releaseDate + " · " + allGenres + " · " + runtime
         view?.setDetails(allDetails)
     }
-
+    
     private func getCast(from movieId: Int, completion: @escaping () -> Void) {
         cast = nil
         networkManager.downloadData(.credits, id: movieId) { [weak self] (result: Result<Credits, Error>) in
@@ -85,7 +111,7 @@ class DetailPresenter: DetailViewPresenterProtocol {
             }
         }
     }
-
+    
     private func getDetails(from movieId: Int, completion: @escaping () -> Void) {
         details = nil
         networkManager.downloadData(.details, id: movieId) { [weak self] (result: Result<Details, Error>) in
@@ -97,18 +123,6 @@ class DetailPresenter: DetailViewPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    func numberOfItemsInSection() -> Int {
-        return cast?.count ?? 0
-    }
-    
-    func cast(for indexPath: IndexPath) -> Cast? {
-        return cast?[indexPath.item]
-    }
-    
-    func backToHome() {
-        router?.backToHome(from: view)
     }
     
 }

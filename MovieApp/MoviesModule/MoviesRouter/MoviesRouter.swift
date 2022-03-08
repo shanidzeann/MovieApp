@@ -29,4 +29,8 @@ class MoviesRouter: MoviesRouterProtocol {
         }
     }
     
+    func openInSafari(url: URL) {
+        UIApplication.shared.open(url)
+    }
+    
 }

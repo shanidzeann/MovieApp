@@ -14,4 +14,5 @@ protocol DetailViewPresenterProtocol: AnyObject {
     func numberOfItemsInSection() -> Int
     func cast(for indexPath: IndexPath) -> Cast?
     func backToHome()
+    func showMovie()
 }

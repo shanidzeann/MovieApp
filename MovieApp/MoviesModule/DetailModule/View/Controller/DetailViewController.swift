@@ -219,6 +219,7 @@ class DetailViewController: UIViewController {
     
     private func addTargets() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        watchButton.addTarget(self, action: #selector(watchButtonTapped), for: .touchUpInside)
     }
     
     
@@ -226,6 +227,10 @@ class DetailViewController: UIViewController {
     
     @objc private func backButtonTapped() {
         presenter.backToHome()
+    }
+    
+    @objc private func watchButtonTapped() {
+        presenter.showMovie()
     }
     
 }
