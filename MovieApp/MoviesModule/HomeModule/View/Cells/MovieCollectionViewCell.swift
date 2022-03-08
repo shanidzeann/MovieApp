@@ -26,13 +26,17 @@ class MovieCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .boldSystemFont(ofSize: 19)
+        label.font = .boldSystemFont(ofSize: 15)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
+        label.numberOfLines = 2
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+        label.font = .systemFont(ofSize: 10)
         return label
     }()
     
@@ -63,20 +67,19 @@ class MovieCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)
         
-        dateLabel.snp.makeConstraints { make in
-            make.bottom.left.right.equalToSuperview()
-            make.height.equalTo(20)
+        movieImageView.snp.makeConstraints { make in
+            make.left.right.top.equalToSuperview()
+            make.height.equalToSuperview().dividedBy(1.3)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(dateLabel.snp.top)
+            make.top.equalTo(movieImageView.snp.bottom).offset(2)
             make.left.right.equalToSuperview()
-            make.height.equalTo(30)
         }
         
-        movieImageView.snp.makeConstraints { make in
-            make.left.right.top.equalToSuperview()
-            make.bottom.equalTo(titleLabel.snp.top)
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(2)
+            make.left.right.equalToSuperview()
         }
     }
     

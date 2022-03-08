@@ -185,7 +185,6 @@ class DetailViewController: UIViewController {
         ratingLabel.snp.makeConstraints { make in
             make.top.equalTo(detailsLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(40)
-            make.height.equalTo(descriptionLabel).dividedBy(7)
         }
         
         descriptionLabel.snp.makeConstraints { make in
@@ -196,11 +195,11 @@ class DetailViewController: UIViewController {
         castCollectionView.snp.makeConstraints({ make in
             make.top.greaterThanOrEqualTo(descriptionLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalToSuperview().dividedBy(5)
+            make.height.equalTo(watchButton.snp.height).multipliedBy(2.8)
         })
         
         watchButton.snp.makeConstraints { make in
-            make.top.equalTo(castCollectionView.snp.bottom).offset(10)
+            make.top.equalTo(castCollectionView.snp.bottom).offset(5)
             make.width.equalToSuperview().dividedBy(2)
             make.height.equalTo(watchButton.snp.width).dividedBy(4)
             make.centerX.equalToSuperview()
