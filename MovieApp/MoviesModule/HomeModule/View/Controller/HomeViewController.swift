@@ -39,6 +39,16 @@ class HomeViewController: UIViewController {
         return button
     }()
     
+    private let noResultsLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.font = .boldSystemFont(ofSize: 15)
+        label.isHidden = true
+        return label
+    }()
+    
     // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
@@ -57,9 +67,16 @@ class HomeViewController: UIViewController {
     }
     
     private func setupConstraints() {
+        view.addSubview(noResultsLabel)
+        
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(30)
             make.right.equalToSuperview().inset(100)
+        }
+        
+        noResultsLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.center.equalToSuperview()
         }
     }
     
@@ -113,5 +130,10 @@ class HomeViewController: UIViewController {
 extension HomeViewController: HomeViewProtocol {
     func setMovies() {
         createCollectionView()
+    }
+    
+    func showError(error: Error) {
+        noResultsLabel.text = "No Results: \(error.localizedDescription)"
+        noResultsLabel.isHidden = false
     }
 }

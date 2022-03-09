@@ -8,7 +8,7 @@
 import Foundation
 
 class HomePresenter: HomeViewPresenterProtocol {
-
+    
     // MARK: - Properties
     
     weak var view: HomeViewProtocol?
@@ -17,7 +17,7 @@ class HomePresenter: HomeViewPresenterProtocol {
     var lists: [(url: String, movies: List)]?
     
     // MARK: - Init
-
+    
     required init(view: HomeViewProtocol, networkManager: NetworkManagerProtocol, router: MoviesRouterProtocol) {
         self.view = view
         self.networkManager = networkManager
@@ -25,17 +25,15 @@ class HomePresenter: HomeViewPresenterProtocol {
     }
     
     // MARK: - Helper Methods
-
+    
     func setMovies() {
         networkManager.downloadMovies { [weak self] result in
             switch result {
             case .success(let lists):
                 self?.lists = lists
-                DispatchQueue.main.async {
-                    self?.view?.setMovies()
-                }
+                self?.view?.setMovies()
             case .failure(let error):
-                print(error)
+                self?.view?.showError(error: error)
             }
         }
     }
@@ -56,9 +54,9 @@ class HomePresenter: HomeViewPresenterProtocol {
     func tapOnMovie(movie: Movie?) {
         router?.showDetail(movie: movie)
     }
-
+    
     func urlFor(section: Int) -> String {
         return lists?[section].url ?? ""
     }
-
+    
 }
