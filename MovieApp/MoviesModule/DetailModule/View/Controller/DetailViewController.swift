@@ -54,6 +54,7 @@ class DetailViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .systemFont(ofSize: 13)
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.1
@@ -65,6 +66,7 @@ class DetailViewController: UIViewController {
         button.backgroundColor = UIColor(red: 189/255, green: 46/255, blue: 63/255, alpha: 1)
         button.setTitle("Watch Now", for: .normal)
         button.layer.cornerRadius = 10
+        button.setTitleColor(.lightGray, for: .disabled)
         return button
     }()
     
@@ -173,7 +175,6 @@ class DetailViewController: UIViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(posterImageView.snp.bottom).inset(130)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(detailsLabel).multipliedBy(3)
         }
         
         detailsLabel.snp.makeConstraints { make in
@@ -190,6 +191,7 @@ class DetailViewController: UIViewController {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(ratingLabel.snp.bottom).offset(5)
             make.left.right.equalToSuperview().inset(20)
+            make.height.lessThanOrEqualToSuperview().dividedBy(4)
         }
         
         castCollectionView.snp.makeConstraints({ make in
@@ -252,6 +254,10 @@ extension DetailViewController: DetailViewProtocol {
     
     func updateCast() {
         castCollectionView?.reloadData()
+    }
+    
+    func disableWatchButton() {
+        watchButton.isEnabled = false
     }
     
 }

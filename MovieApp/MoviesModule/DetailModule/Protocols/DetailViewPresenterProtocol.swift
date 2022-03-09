@@ -15,4 +15,5 @@ protocol DetailViewPresenterProtocol: AnyObject {
     func cast(for indexPath: IndexPath) -> Cast?
     func backToHome()
     func showMovie()
+    func checkWatchButtonActivity()
 }

@@ -42,6 +42,7 @@ class DetailPresenter: DetailViewPresenterProtocol {
         getDetails(from: movie.id) {
             DispatchQueue.main.async { [weak self] in
                 self?.setDetails()
+                self?.checkWatchButtonActivity()
             }
         }
         
@@ -72,6 +73,14 @@ class DetailPresenter: DetailViewPresenterProtocol {
               let homePageURL = details.homepage,
               let url = URL(string: homePageURL) else { return }
         router?.openInSafari(url: url)
+    }
+    
+    func checkWatchButtonActivity() {
+        guard let details = details,
+              let homepageUrl = details.homepage, homepageUrl != "" else {
+                  view?.disableWatchButton()
+                  return
+              }
     }
     
     // MARK: - Private
