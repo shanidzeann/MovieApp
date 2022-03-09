@@ -9,11 +9,6 @@ import Foundation
 import Kingfisher
 import UIKit
 
-enum DataType {
-    case details
-    case credits
-}
-
 class NetworkManager: NetworkManagerProtocol {
     
     let popularMoviesURL = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=\(yourKey)&language=en-US&page=1")
