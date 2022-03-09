@@ -27,6 +27,7 @@ class NetworkManager: NetworkManagerProtocol {
         
         let urls = [popularMoviesURL, topRatedURL, upcoming]
         var movieCollection: [(url: String, movies: List)] = []
+        var catchError: Error?
         let urlDownloadQueue = DispatchQueue(label: "com.urlDownloader.urlqueue")
         let urlDownloadGroup = DispatchGroup()
         
@@ -34,7 +35,7 @@ class NetworkManager: NetworkManagerProtocol {
             urlDownloadGroup.enter()
             URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
                 if let error = error {
-                    completion(.failure(error))
+                    catchError = error
                     self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
                 }
                 if let data = data {
@@ -60,7 +61,7 @@ class NetworkManager: NetworkManagerProtocol {
                         print("codingPath:", context.codingPath)
                         self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
                     } catch {
-                        completion(.failure(error))
+                        catchError = error
                         self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
                     }
                 }
@@ -68,8 +69,12 @@ class NetworkManager: NetworkManagerProtocol {
             urlDownloadGroup.wait()
         }
         
-        urlDownloadGroup.notify(queue: DispatchQueue.global()) {
-            completion(.success(movieCollection))
+        urlDownloadGroup.notify(queue: .main) {
+            if movieCollection.isEmpty {
+                completion(.failure(catchError!))
+            } else {
+                completion(.success(movieCollection))
+            }
         }
     }
     
