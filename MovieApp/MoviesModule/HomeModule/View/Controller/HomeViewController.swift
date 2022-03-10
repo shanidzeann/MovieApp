@@ -91,7 +91,7 @@ class HomeViewController: UIViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             guard let sectionKind = Section(rawValue: sectionIndex) else { return nil }
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
@@ -99,12 +99,11 @@ class HomeViewController: UIViewController {
             item.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
             var groupSize = NSCollectionLayoutSize(widthDimension: .absolute(200), heightDimension: .absolute(300))
             
-            guard let view = self?.view.frame else { return nil }
             switch sectionKind {
             case .popular:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(view.width/2.6), heightDimension: .absolute(view.width * 0.58))
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.38), heightDimension: .fractionalWidth(0.58))
             case .topRated, .upcoming:
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(view.width/2.9), heightDimension: .absolute(view.width * 0.52))
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.34), heightDimension: .fractionalWidth(0.52))
             }
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
