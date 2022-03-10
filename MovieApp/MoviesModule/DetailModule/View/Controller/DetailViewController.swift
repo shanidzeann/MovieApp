@@ -88,6 +88,25 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    private let indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.color = .white
+        view.startAnimating()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
+    private let errorLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.font = .boldSystemFont(ofSize: 15)
+        label.isHidden = true
+        return label
+    }()
+    
     private lazy var setupGradient: Void = {
         let view = UIView(frame: posterImageView.bounds)
         let gradient = CAGradientLayer()
@@ -127,6 +146,8 @@ class DetailViewController: UIViewController {
         view.addSubview(watchButton)
         view.addSubview(backButton)
         view.addSubview(bookmarkButton)
+        view.addSubview(indicatorView)
+        view.addSubview(errorLabel)
         
         castCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         guard let castCollectionView = castCollectionView else { return }
@@ -217,6 +238,15 @@ class DetailViewController: UIViewController {
             make.top.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.width.height.equalTo(30)
         }
+        
+        indicatorView.snp.makeConstraints { make in
+            make.center.equalTo(posterImageView)
+        }
+        
+        errorLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.center.equalToSuperview()
+        }
     }
     
     private func addTargets() {
@@ -224,6 +254,13 @@ class DetailViewController: UIViewController {
         watchButton.addTarget(self, action: #selector(watchButtonTapped), for: .touchUpInside)
     }
     
+    private func hideUI() {
+        errorLabel.isHidden = false
+        posterImageView.subviews[0].layer.sublayers?.removeAll()
+        castCollectionView?.isHidden = true
+        watchButton.isHidden = true
+        indicatorView.stopAnimating()
+    }
     
     // MARK: - Routing
     
@@ -242,7 +279,9 @@ class DetailViewController: UIViewController {
 extension DetailViewController: DetailViewProtocol {
     
     func setData(posterUrl: URL?, title: String, rating: String, description: String?) {
-        posterImageView.kf.setImage(with: posterUrl)
+        posterImageView.kf.setImage(with: posterUrl) { [weak self] _ in
+            self?.indicatorView.stopAnimating()
+        }
         titleLabel.text = title
         ratingLabel.text = rating
         descriptionLabel.text = description
@@ -258,6 +297,11 @@ extension DetailViewController: DetailViewProtocol {
     
     func disableWatchButton() {
         watchButton.isEnabled = false
+    }
+    
+    func showError(_ error: Error) {
+        hideUI()
+        errorLabel.text = "Error occurred: \(error.localizedDescription)"
     }
     
 }

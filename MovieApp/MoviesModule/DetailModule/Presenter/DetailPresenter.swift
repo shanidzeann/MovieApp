@@ -33,25 +33,32 @@ class DetailPresenter: DetailViewPresenterProtocol {
     
     func setData() {
         guard let movie = movie else { return }
+        
+        getDetails(from: movie.id) { error in
+            DispatchQueue.main.async { [weak self] in
+                if let error = error {
+                    self?.view?.showError(error)
+                } else {
+                    self?.setDetails()
+                    self?.checkWatchButtonActivity()
+                    self?.setGeneralMovieData(movie)
+                }
+            }
+        }
+        
         getCast(from: movie.id) {
             DispatchQueue.main.async { [weak self] in
                 self?.view?.updateCast()
             }
         }
-        
-        getDetails(from: movie.id) {
-            DispatchQueue.main.async { [weak self] in
-                self?.setDetails()
-                self?.checkWatchButtonActivity()
-            }
-        }
-        
+    }
+    
+    private func setGeneralMovieData(_ movie: Movie) {
         let image = movie.backdropPath
         let url = URL(string: imageURL + image)
         let title = movie.title
         let rating = "\(movie.voteAverage)"
         let description = movie.overview
-        
         
         view?.setData(posterUrl: url, title: title, rating: rating, description: description)
     }
@@ -121,15 +128,15 @@ class DetailPresenter: DetailViewPresenterProtocol {
         }
     }
     
-    private func getDetails(from movieId: Int, completion: @escaping () -> Void) {
+    private func getDetails(from movieId: Int, completion: @escaping (Error?) -> Void) {
         details = nil
         networkManager.downloadData(.details, id: movieId) { [weak self] (result: Result<Details, Error>) in
             switch result {
             case .success(let details):
                 self?.details = details
-                completion()
+                completion(nil)
             case .failure(let error):
-                print(error.localizedDescription)
+                completion(error)
             }
         }
     }

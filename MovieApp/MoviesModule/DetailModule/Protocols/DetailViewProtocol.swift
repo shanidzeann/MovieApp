@@ -13,4 +13,5 @@ protocol DetailViewProtocol: ViewProtocol {
     func setDetails(_ details: String)
     func setData(posterUrl: URL?, title: String, rating: String, description: String?)
     func disableWatchButton()
+    func showError(_ error: Error)
 }
