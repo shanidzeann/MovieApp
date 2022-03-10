@@ -49,6 +49,15 @@ class HomeViewController: UIViewController {
         return label
     }()
     
+    private let indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.color = .white
+        view.startAnimating()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
@@ -68,6 +77,7 @@ class HomeViewController: UIViewController {
     
     private func setupConstraints() {
         view.addSubview(noResultsLabel)
+        view.addSubview(indicatorView)
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(30)
@@ -76,6 +86,10 @@ class HomeViewController: UIViewController {
         
         noResultsLabel.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
+            make.center.equalToSuperview()
+        }
+        
+        indicatorView.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
@@ -128,10 +142,13 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: HomeViewProtocol {
     func setMovies() {
+        indicatorView.stopAnimating()
         createCollectionView()
+        
     }
     
     func showError(error: Error) {
+        indicatorView.stopAnimating()
         noResultsLabel.text = "No Results: \(error.localizedDescription)"
         noResultsLabel.isHidden = false
     }

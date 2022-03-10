@@ -40,6 +40,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.color = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -66,6 +74,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(movieImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)
+        contentView.addSubview(indicatorView)
         
         movieImageView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
@@ -80,6 +89,10 @@ class MovieCollectionViewCell: UICollectionViewCell {
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(2)
             make.left.right.equalToSuperview()
+        }
+        
+        indicatorView.snp.makeConstraints { make in
+            make.center.equalTo(movieImageView)
         }
     }
     
@@ -96,8 +109,11 @@ class MovieCollectionViewCell: UICollectionViewCell {
 
 extension MovieCollectionViewCell: MovieCellProtocol {
     func setData(title: String, releaseDate: String, imageURL: URL?) {
+        indicatorView.startAnimating()
         titleLabel.text = title
         dateLabel.text = releaseDate
-        movieImageView.kf.setImage(with: imageURL)
+        movieImageView.kf.setImage(with: imageURL) { [weak self] _ in
+            self?.indicatorView.stopAnimating()
+        }
     }
 }

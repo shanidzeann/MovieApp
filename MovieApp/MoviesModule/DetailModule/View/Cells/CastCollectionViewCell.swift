@@ -45,6 +45,14 @@ class CastCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.color = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -78,6 +86,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(actorImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(characterLabel)
+        contentView.addSubview(indicatorView)
         
         actorImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -96,6 +105,10 @@ class CastCollectionViewCell: UICollectionViewCell {
             make.left.right.equalToSuperview()
         }
         
+        indicatorView.snp.makeConstraints { make in
+            make.center.equalTo(actorImageView)
+        }
+        
     }
     
     override func prepareForReuse() {
@@ -109,10 +122,14 @@ class CastCollectionViewCell: UICollectionViewCell {
 
 extension CastCollectionViewCell: CastCellProtocol {
     func setData(profileUrl: URL?, name: String, character: String?) {
+        indicatorView.startAnimating()
         if let url = profileUrl {
-            actorImageView.kf.setImage(with: url)
+            actorImageView.kf.setImage(with: url) { [weak self] _ in
+                self?.indicatorView.stopAnimating()
+            }
         } else {
             actorImageView.image = UIImage(systemName: "questionmark.circle")
+            indicatorView.stopAnimating()
         }
         nameLabel.text = name
         characterLabel.text = character
