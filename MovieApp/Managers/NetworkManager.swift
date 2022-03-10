@@ -34,31 +34,18 @@ class NetworkManager: NetworkManagerProtocol {
                     self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
                 }
                 if let data = data {
-                    do {
-                        let result = try JSONDecoder().decode(List.self, from: data)
-                        urlDownloadQueue.async {
-                            movieCollection.append((url.absoluteString, result))
-                            urlDownloadGroup.leave()
+                    self?.parseJSON(data: data, completion: { (result: Result<List, Error>) in
+                        switch result {
+                        case .success(let result):
+                            urlDownloadQueue.async {
+                                movieCollection.append((url.absoluteString, result))
+                                urlDownloadGroup.leave()
+                            }
+                        case .failure(let error):
+                            catchError = error
+                            self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
                         }
-                    } catch let DecodingError.dataCorrupted(context) {
-                        print(context)
-                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
-                    } catch let DecodingError.keyNotFound(key, context) {
-                        print("Key '\(key)' not found:", context.debugDescription)
-                        print("codingPath:", context.codingPath)
-                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
-                    } catch let DecodingError.valueNotFound(value, context) {
-                        print("Value '\(value)' not found:", context.debugDescription)
-                        print("codingPath:", context.codingPath)
-                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
-                    } catch let DecodingError.typeMismatch(type, context)  {
-                        print("Type '\(type)' mismatch:", context.debugDescription)
-                        print("codingPath:", context.codingPath)
-                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
-                    } catch {
-                        catchError = error
-                        self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
-                    }
+                    })
                 }
             }.resume()
             urlDownloadGroup.wait()
@@ -124,15 +111,19 @@ class NetworkManager: NetworkManagerProtocol {
             completion(.success(result))
         } catch let DecodingError.dataCorrupted(context) {
             print(context)
+            completion(.failure(DecodingError.dataCorrupted(context)))
         } catch let DecodingError.keyNotFound(key, context) {
             print("Key '\(key)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            completion(.failure(DecodingError.keyNotFound(key, context)))
         } catch let DecodingError.valueNotFound(value, context) {
             print("Value '\(value)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            completion(.failure(DecodingError.valueNotFound(value, context)))
         } catch let DecodingError.typeMismatch(type, context)  {
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            completion(.failure(DecodingError.typeMismatch(type, context)))
         } catch {
             completion(.failure(error))
         }
