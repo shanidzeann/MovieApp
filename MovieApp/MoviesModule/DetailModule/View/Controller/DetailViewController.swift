@@ -153,8 +153,8 @@ class DetailViewController: UIViewController {
         guard let castCollectionView = castCollectionView else { return }
         castCollectionView.isScrollEnabled = false
         castCollectionView.backgroundColor = UIColor(red: 29/255, green: 24/255, blue: 36/255, alpha: 1)
-        castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: "myCell")
-        castCollectionView.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "castHeaderView")
+        castCollectionView.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: Constants.CollectionView.CellIdentifiers.castCell)
+        castCollectionView.register(CastHeaderSupplementaryView.self, forSupplementaryViewOfKind: Constants.CollectionView.Headers.elementKind, withReuseIdentifier: Constants.CollectionView.Headers.castHeader)
         castCollectionView.dataSource = self
         castCollectionView.showsVerticalScrollIndicator = false
         
@@ -171,7 +171,7 @@ class DetailViewController: UIViewController {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(20.0))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: Constants.CollectionView.Headers.elementKind, alignment: .top)
             header.pinToVisibleBounds = true
             
             let section = NSCollectionLayoutSection(group: group)

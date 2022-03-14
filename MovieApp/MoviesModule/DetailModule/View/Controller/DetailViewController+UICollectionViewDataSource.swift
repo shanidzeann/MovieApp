@@ -16,7 +16,7 @@ extension DetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! CastCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CollectionView.CellIdentifiers.castCell, for: indexPath) as! CastCollectionViewCell
         
         cellPresenter = CastCellPresenter(view: cell)
         cell.inject(presenter: cellPresenter)
@@ -29,7 +29,7 @@ extension DetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "castHeaderView", for: indexPath) as? CastHeaderSupplementaryView else { return UICollectionReusableView() }
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.CollectionView.Headers.castHeader, for: indexPath) as? CastHeaderSupplementaryView else { return UICollectionReusableView() }
         return headerView
     }
     

@@ -40,6 +40,7 @@
 		017A9FF627D294A7007DB155 /* MockHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A9FF527D294A7007DB155 /* MockHomeView.swift */; };
 		017A9FF827D294D2007DB155 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A9FF727D294D2007DB155 /* MockNetworkManager.swift */; };
 		017BCDD127D95DE900D4AE82 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017BCDD027D95DE900D4AE82 /* DataType.swift */; };
+		017D880B27E005830083B514 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D880A27E005830083B514 /* Constants.swift */; };
 		0186D90427D019A200476DE9 /* MovieCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90327D019A200476DE9 /* MovieCellPresenter.swift */; };
 		0186D90927D0267200476DE9 /* MovieCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90827D0267200476DE9 /* MovieCellProtocol.swift */; };
 		0186D90B27D0268C00476DE9 /* MovieCellPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */; };
@@ -111,6 +112,7 @@
 		017A9FF527D294A7007DB155 /* MockHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeView.swift; sourceTree = "<group>"; };
 		017A9FF727D294D2007DB155 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		017BCDD027D95DE900D4AE82 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
+		017D880A27E005830083B514 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0186D90327D019A200476DE9 /* MovieCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellPresenter.swift; sourceTree = "<group>"; };
 		0186D90827D0267200476DE9 /* MovieCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellProtocol.swift; sourceTree = "<group>"; };
 		0186D90A27D0268C00476DE9 /* MovieCellPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				8915A45A27C3E59900B4674C /* LaunchScreen.storyboard */,
 				8915A45D27C3E59900B4674C /* Info.plist */,
 				897F2AEA27C4F46A0080C3EE /* ImagineItIsHidden.swift */,
+				017D880A27E005830083B514 /* Constants.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				0186D91427D0319D00476DE9 /* HomeHeaderPresenter.swift in Sources */,
 				01773F6627CC0FF800D0F58C /* RouterMain.swift in Sources */,
 				01773F5727CC09F100D0F58C /* ViewProtocol.swift in Sources */,
+				017D880B27E005830083B514 /* Constants.swift in Sources */,
 				01593FE227D0E150005BEAFA /* CastCellPresenterProtocol.swift in Sources */,
 				01773F5227CC097500D0F58C /* DetailViewProtocol.swift in Sources */,
 			);

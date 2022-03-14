@@ -20,7 +20,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CollectionView.CellIdentifiers.movieCell, for: indexPath) as! MovieCollectionViewCell
         
         cellPresenter = MovieCellPresenter(view: cell)
         cell.inject(presenter: cellPresenter)
@@ -33,7 +33,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as? HomeHeaderSupplementaryView else { return UICollectionReusableView() }
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.CollectionView.Headers.homeHeader, for: indexPath) as? HomeHeaderSupplementaryView else { return UICollectionReusableView() }
         
         headerPresenter = HomeHeaderPresenter(view: headerView)
         headerView.inject(presenter: headerPresenter)
