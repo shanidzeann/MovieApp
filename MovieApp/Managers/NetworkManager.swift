@@ -23,46 +23,27 @@ class NetworkManager: NetworkManagerProtocol {
         let urls = [popularMoviesURL, topRatedURL, upcoming]
         var movieCollection: [(url: String, movies: List)] = []
         var catchError: Error?
-        let urlDownloadQueue = DispatchQueue(label: "com.urlDownloader.urlqueue")
         let urlDownloadGroup = DispatchGroup()
         
         urls.forEach { url in
             urlDownloadGroup.enter()
-            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-                if let error = error {
+            getData(url: url) { (result: Result<List, Error>)  in
+                switch result {
+                case .success(let result):
+                    movieCollection.append((url.absoluteString, result))
+                    urlDownloadGroup.leave()
+                case .failure(let error):
                     catchError = error
-                    self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
+                    urlDownloadGroup.leave()
                 }
-                if let data = data {
-                    self?.parseJSON(data: data, completion: { (result: Result<List, Error>) in
-                        switch result {
-                        case .success(let result):
-                            urlDownloadQueue.async {
-                                movieCollection.append((url.absoluteString, result))
-                                urlDownloadGroup.leave()
-                            }
-                        case .failure(let error):
-                            catchError = error
-                            self?.leaveGroup(urlDownloadGroup, queue: urlDownloadQueue)
-                        }
-                    })
-                }
-            }.resume()
+            }
             urlDownloadGroup.wait()
         }
         
-        urlDownloadGroup.notify(queue: .main) {
-            if movieCollection.isEmpty {
-                completion(.failure(catchError!))
-            } else {
-                completion(.success(movieCollection))
-            }
-        }
-    }
-    
-    private func leaveGroup(_ group: DispatchGroup, queue: DispatchQueue) {
-        queue.async {
-            group.leave()
+        if movieCollection.isEmpty {
+            completion(.failure(catchError!))
+        } else {
+            completion(.success(movieCollection))
         }
     }
     
