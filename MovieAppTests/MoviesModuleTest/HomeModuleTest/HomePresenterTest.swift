@@ -33,10 +33,8 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testSetMovieListsSuccess() {
-        networkManager = MockNetworkManager(lists: lists)
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
+        setUpWithMovies()
         
-        presenter.setMovies()
         let listsCount = presenter.lists?.count
         
         XCTAssertNotNil(listsCount)
@@ -44,17 +42,13 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testSetMovieListsFailure() {
-        networkManager = MockNetworkManager()
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
+        setUpWithoutMovies()
         
-        presenter.setMovies()
         XCTAssertNil(presenter.lists)
     }
     
     func testGetSelectedMovieSuccess() {
-        networkManager = MockNetworkManager(lists: lists)
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
-        presenter.setMovies()
+        setUpWithMovies()
         
         let indexPath = IndexPath(item: 0, section: 0)
         let selectedMovie = presenter.movie(for: indexPath)
@@ -64,9 +58,7 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testGetSelectedMovieFailure() {
-        networkManager = MockNetworkManager()
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
-        presenter.setMovies()
+        setUpWithoutMovies()
         
         let indexPath = IndexPath(item: 0, section: 0)
         let selectedMovie = presenter.movie(for: indexPath)
@@ -74,9 +66,7 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testGetNumberOfSectionsAndItemsInSectionSuccess() {
-        networkManager = MockNetworkManager(lists: lists)
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
-        presenter.setMovies()
+        setUpWithMovies()
         
         let items = presenter.numberOfItemsInSection(0)
         let sections = presenter.numberOfSections()
@@ -86,9 +76,7 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testGetNumberOfSectionsAndItemsInSectionFailure() {
-        networkManager = MockNetworkManager()
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
-        presenter.setMovies()
+        setUpWithoutMovies()
         
         let items = presenter.numberOfItemsInSection(0)
         let sections = presenter.numberOfSections()
@@ -98,9 +86,7 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testGetUrlForSectionSuccess() {
-        networkManager = MockNetworkManager(lists: lists)
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
-        presenter.setMovies()
+        setUpWithMovies()
         
         let url = presenter.urlFor(section: 0)
         
@@ -108,12 +94,22 @@ class HomePresenterTest: XCTestCase {
     }
     
     func testGetUrlForSectionFailure() {
-        networkManager = MockNetworkManager()
-        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
-        presenter.setMovies()
+        setUpWithoutMovies()
         
         let url = presenter.urlFor(section: 0)
         
         XCTAssertEqual(url, "")
+    }
+    
+    private func setUpWithMovies() {
+        networkManager = MockNetworkManager(lists: lists)
+        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
+        presenter.setMovies()
+    }
+    
+    private func setUpWithoutMovies() {
+        networkManager = MockNetworkManager()
+        presenter = HomePresenter(view: view, networkManager: networkManager, router: router)
+        presenter.setMovies()
     }
 }
