@@ -45,6 +45,7 @@
 		0186D90F27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D90E27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift */; };
 		0186D91427D0319D00476DE9 /* HomeHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D91327D0319D00476DE9 /* HomeHeaderPresenter.swift */; };
 		0186D91627D0322500476DE9 /* HomeHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186D91527D0322500476DE9 /* HomeHeaderProtocol.swift */; };
+		01ED87AA28044DA0007CEA90 /* NetworkingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED87A928044DA0007CEA90 /* NetworkingTest.swift */; };
 		8915A45027C3E59700B4674C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A44F27C3E59700B4674C /* AppDelegate.swift */; };
 		8915A45227C3E59700B4674C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45127C3E59700B4674C /* SceneDelegate.swift */; };
 		8915A45427C3E59700B4674C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915A45327C3E59700B4674C /* HomeViewController.swift */; };
@@ -115,6 +116,7 @@
 		0186D90E27D030AD00476DE9 /* HomeHeaderPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderPresenterProtocol.swift; sourceTree = "<group>"; };
 		0186D91327D0319D00476DE9 /* HomeHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderPresenter.swift; sourceTree = "<group>"; };
 		0186D91527D0322500476DE9 /* HomeHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderProtocol.swift; sourceTree = "<group>"; };
+		01ED87A928044DA0007CEA90 /* NetworkingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTest.swift; sourceTree = "<group>"; };
 		8915A44C27C3E59700B4674C /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8915A44F27C3E59700B4674C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8915A45127C3E59700B4674C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				017A9FEB27D28386007DB155 /* MovieAppTests.swift */,
+				01ED87A928044DA0007CEA90 /* NetworkingTest.swift */,
 				013ED92A27D3C16B00E3F3B4 /* MoviesModuleTest */,
 			);
 			path = MovieAppTests;
@@ -681,6 +684,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01ED87AA28044DA0007CEA90 /* NetworkingTest.swift in Sources */,
 				017A9FEC27D28386007DB155 /* MovieAppTests.swift in Sources */,
 				017A9FF427D28415007DB155 /* HomePresenterTest.swift in Sources */,
 				017A9FF827D294D2007DB155 /* MockNetworkManager.swift in Sources */,
