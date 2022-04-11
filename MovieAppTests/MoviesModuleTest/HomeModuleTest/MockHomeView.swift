@@ -9,7 +9,12 @@ import Foundation
 @testable import MovieApp
 
 class MockHomeView: HomeViewProtocol {
+    
     var presenter: HomeViewPresenterProtocol!
+    
     func setMovies() {
+    }
+    
+    func showError(error: Error) {
     }
 }
