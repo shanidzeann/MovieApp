@@ -7,7 +7,7 @@
 - CollectionView: Compositional Layout
 - URLSession
 - DispatchGroup 
-- Парочка юнит-тестов
+- Протестировала основные методы HomePresenter и NetworkManager
 
 
 ![Image alt](https://github.com/shanidzeann/Screenshots/blob/main/m1.png)
