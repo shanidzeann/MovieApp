@@ -1,5 +1,6 @@
 # MovieApp
 
+- API - The Movie Database (теперь доступ заблокирован)
 - UIKit
 - MVP + Router + Assembly 
 - SnapKit
